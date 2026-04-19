@@ -1,0 +1,6 @@
+import { LoadingScreen } from "@/components/ui/loading-screen";
+
+export default function RootLoading() {
+  return <LoadingScreen label="Booting mission control..." />;
+}
+

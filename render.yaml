@@ -1,0 +1,79 @@
+services:
+  - type: web
+    name: gps-spoofing-detection-server
+    env: node
+    rootDir: server
+    plan: free
+    autoDeploy: true
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: API_PREFIX
+        value: /api/v1
+      - key: LOG_LEVEL
+        value: info
+      - key: RATE_LIMIT_WINDOW_MS
+        value: 900000
+      - key: RATE_LIMIT_MAX
+        value: 200
+      - key: BODY_LIMIT
+        value: 1mb
+      - key: GPS_DUPLICATE_WINDOW_MS
+        value: 10000
+      - key: DEVICE_ONLINE_WINDOW_MS
+        value: 300000
+      - key: DETECTION_JUMP_DISTANCE_METERS
+        value: 1500
+      - key: DETECTION_JUMP_WINDOW_MS
+        value: 120000
+      - key: DETECTION_MAX_SPEED_KMH
+        value: 280
+      - key: DETECTION_TIMESTAMP_DRIFT_MS
+        value: 300000
+      - key: DETECTION_REPEATED_COORDINATES_LIMIT
+        value: 4
+      - key: DETECTION_GEOFENCE_ENABLED
+        value: false
+      - key: DETECTION_GEOFENCE_CENTER_LAT
+        value: 0
+      - key: DETECTION_GEOFENCE_CENTER_LNG
+        value: 0
+      - key: DETECTION_GEOFENCE_RADIUS_METERS
+        value: 0
+      - key: DETECTION_ACCURACY_FLUCTUATION_METERS
+        value: 50
+      - key: DETECTION_ACCURACY_FLUCTUATION_RATIO
+        value: 3
+      - key: DETECTION_TELEPORT_DISTANCE_METERS
+        value: 5000
+      - key: DETECTION_TELEPORT_WINDOW_MS
+        value: 60000
+      - key: BCRYPT_SALT_ROUNDS
+        value: 12
+      - key: REFRESH_COOKIE_NAME
+        value: gps_refresh_token
+      - key: REFRESH_COOKIE_MAX_AGE_MS
+        value: 604800000
+      - key: COOKIE_SAME_SITE
+        value: none
+      - key: ALLOW_PUBLIC_REGISTRATION
+        value: false
+      - key: CLIENT_URL
+        sync: false
+      - key: MONGODB_URI
+        sync: false
+      - key: RESET_PASSWORD_URL
+        sync: false
+      - key: RESEND_API_KEY
+        sync: false
+      - key: EMAIL_FROM
+        sync: false
+      - key: JWT_ACCESS_SECRET
+        sync: false
+      - key: JWT_REFRESH_SECRET
+        sync: false

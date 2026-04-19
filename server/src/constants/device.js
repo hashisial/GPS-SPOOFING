@@ -1,0 +1,24 @@
+export const DEVICE_TYPES = {
+  TRACKER: "TRACKER",
+  VEHICLE: "VEHICLE",
+  MOBILE: "MOBILE",
+  DRONE: "DRONE"
+};
+
+export const DEVICE_TYPE_VALUES = Object.values(DEVICE_TYPES);
+
+export const DEVICE_STATUS = {
+  ONLINE: "ONLINE",
+  OFFLINE: "OFFLINE",
+  MAINTENANCE: "MAINTENANCE",
+  DISABLED: "DISABLED"
+};
+
+export const DEVICE_STATUS_VALUES = Object.values(DEVICE_STATUS);
+
+export const DEVICE_ONLINE_FILTER = {
+  ONLINE: "ONLINE",
+  OFFLINE: "OFFLINE"
+};
+
+export const DEVICE_ONLINE_FILTER_VALUES = Object.values(DEVICE_ONLINE_FILTER);

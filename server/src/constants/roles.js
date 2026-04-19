@@ -1,0 +1,7 @@
+export const ROLES = {
+  SUPER_ADMIN: "SUPER_ADMIN",
+  SECURITY_ANALYST: "SECURITY_ANALYST",
+  VIEWER: "VIEWER"
+};
+
+export const ROLE_VALUES = Object.values(ROLES);

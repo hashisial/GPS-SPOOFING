@@ -1,0 +1,159 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum DeviceStatus {
+  ACTIVE
+  MAINTENANCE
+  OFFLINE
+}
+
+enum AlertSeverity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum AlertStatus {
+  OPEN
+  ACKNOWLEDGED
+  RESOLVED
+}
+
+enum ReportType {
+  INCIDENT_SUMMARY
+  DEVICE_ACTIVITY
+  SPOOFING_ANALYSIS
+}
+
+model User {
+  id                     String                  @id @default(cuid())
+  name                   String
+  email                  String                  @unique
+  passwordHash           String
+  role                   Role                    @default(USER)
+  isActive               Boolean                 @default(true)
+  lastLoginAt            DateTime?
+  reports                Report[]                @relation("ReportsGeneratedBy")
+  notificationPreference NotificationPreference?
+  createdAt              DateTime                @default(now())
+  updatedAt              DateTime                @updatedAt
+}
+
+model Device {
+  id           String       @id @default(cuid())
+  callsign     String       @unique
+  label        String
+  fleet        String?
+  status       DeviceStatus @default(ACTIVE)
+  lastKnownLat Float?
+  lastKnownLng Float?
+  lastSeenAt   DateTime?
+  notes        String?
+  gpsLogs      GpsLog[]
+  alerts       Alert[]
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+}
+
+model GpsLog {
+  id            String    @id @default(cuid())
+  deviceId      String
+  device        Device    @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+  latitude      Float
+  longitude     Float
+  speedKph      Float?
+  headingDegrees Float?
+  signalStrength Int?
+  accuracyMeters Float?
+  satelliteCount Int?
+  timestamp     DateTime
+  isSpoofed     Boolean   @default(false)
+  spoofingScore Float     @default(0)
+  anomalyFlags  String[]
+  rawPayload    Json?
+  alert         Alert?
+  createdAt     DateTime  @default(now())
+
+  @@index([deviceId, timestamp])
+  @@index([timestamp])
+  @@index([isSpoofed, timestamp])
+}
+
+model Alert {
+  id                String        @id @default(cuid())
+  deviceId          String
+  device            Device        @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+  gpsLogId          String        @unique
+  gpsLog            GpsLog        @relation(fields: [gpsLogId], references: [id], onDelete: Cascade)
+  severity          AlertSeverity
+  status            AlertStatus   @default(OPEN)
+  title             String
+  description       String
+  triggeredRules    String[]
+  confidence        Float
+  computedSpeedKph  Float?
+  distanceJumpMeters Float?
+  signalDelta       Int?
+  accuracyMeters    Float?
+  metadata          Json?
+  detectedAt        DateTime      @default(now())
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  @@index([status, severity, detectedAt])
+  @@index([deviceId, detectedAt])
+}
+
+model Report {
+  id            String     @id @default(cuid())
+  title         String
+  type          ReportType @default(SPOOFING_ANALYSIS)
+  generatedById String?
+  generatedBy   User?      @relation("ReportsGeneratedBy", fields: [generatedById], references: [id], onDelete: SetNull)
+  filters       Json?
+  summary       Json
+  alertCount    Int        @default(0)
+  logCount      Int        @default(0)
+  createdAt     DateTime   @default(now())
+
+  @@index([createdAt])
+}
+
+model SystemSetting {
+  id                          String   @id
+  confidenceThreshold         Int      @default(85)
+  driftThresholdMeters        Int      @default(1500)
+  headingThresholdDegrees     Int      @default(12)
+  emailNotificationsEnabled   Boolean  @default(true)
+  smsNotificationsEnabled     Boolean  @default(false)
+  webhookNotificationsEnabled Boolean  @default(false)
+  webhookUrl                  String?
+  createdAt                   DateTime @default(now())
+  updatedAt                   DateTime @updatedAt
+}
+
+model NotificationPreference {
+  id             String   @id @default(cuid())
+  userId         String   @unique
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  emailEnabled   Boolean  @default(true)
+  smsEnabled     Boolean  @default(false)
+  pushEnabled    Boolean  @default(true)
+  weeklyDigest   Boolean  @default(true)
+  criticalOnly   Boolean  @default(false)
+  preferredEmail String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}

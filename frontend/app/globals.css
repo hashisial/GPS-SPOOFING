@@ -1,0 +1,288 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --app-bg: 6 17 37;
+  --surface: 15 35 67;
+  --surface-strong: 21 49 90;
+  --surface-soft: 255 255 255;
+  --line: 118 148 192;
+  --text-primary: 234 243 255;
+  --text-muted: 136 161 196;
+  --signal: 86 199 255;
+  --accent: 255 194 92;
+  --danger: 255 104 116;
+  --success: 93 214 177;
+  --bg-radial-a: rgba(64, 145, 255, 0.16);
+  --bg-radial-b: rgba(23, 92, 211, 0.15);
+  --bg-radial-c: rgba(255, 194, 92, 0.08);
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --app-bg: 241 245 249;
+  --surface: 255 255 255;
+  --surface-strong: 226 232 240;
+  --surface-soft: 15 23 42;
+  --line: 148 163 184;
+  --text-primary: 15 23 42;
+  --text-muted: 71 85 105;
+  --signal: 13 148 136;
+  --accent: 217 119 6;
+  --danger: 225 29 72;
+  --success: 22 163 74;
+  --bg-radial-a: rgba(13, 148, 136, 0.16);
+  --bg-radial-b: rgba(59, 130, 246, 0.09);
+  --bg-radial-c: rgba(245, 158, 11, 0.12);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 12% 10%, var(--bg-radial-a), transparent 30%),
+    radial-gradient(circle at 88% 14%, var(--bg-radial-b), transparent 30%),
+    radial-gradient(circle at 50% 100%, var(--bg-radial-c), transparent 26%),
+    linear-gradient(180deg, rgba(var(--app-bg), 1) 0%, rgba(var(--app-bg), 0.98) 100%);
+  color: rgb(var(--text-primary));
+  font-family: var(--font-sora), sans-serif;
+  transition:
+    background-color 240ms ease,
+    color 240ms ease,
+    background 240ms ease;
+}
+
+::selection {
+  background: rgba(var(--signal), 0.28);
+  color: rgb(var(--text-primary));
+}
+
+* {
+  border-color: rgba(var(--line), 0.24);
+}
+
+@layer components {
+  .panel {
+    @apply relative rounded-[1.6rem] border border-line/20 shadow-card backdrop-blur-xl transition duration-300;
+    background: linear-gradient(180deg, rgba(var(--surface), 0.78), rgba(var(--surface), 0.68));
+  }
+
+  .panel-strong {
+    @apply relative rounded-[1.6rem] border border-line/25 shadow-card backdrop-blur-xl transition duration-300;
+    background: linear-gradient(
+      180deg,
+      rgba(var(--surface-strong), 0.78),
+      rgba(var(--surface-strong), 0.68)
+    );
+  }
+
+  .eyebrow {
+    @apply text-[0.68rem] uppercase tracking-[0.34em] text-text-muted;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-2 rounded-full border border-line/20 px-3 py-1.5 text-sm text-text-muted backdrop-blur;
+    background-color: rgba(var(--surface-strong), 0.52);
+  }
+
+  .field {
+    @apply w-full rounded-[1.1rem] border border-line/20 px-4 py-3 text-sm text-text-primary outline-none transition duration-200 placeholder:text-text-muted/80 focus:border-signal/60;
+    background-color: rgba(var(--surface), 0.66);
+  }
+
+  .primary-button {
+    @apply inline-flex items-center justify-center gap-2 rounded-[1rem] px-4 py-3 text-sm font-semibold text-[#06172f] shadow-glow transition duration-200 hover:-translate-y-0.5 hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60;
+    background: linear-gradient(135deg, rgba(var(--signal), 1), rgba(112, 214, 255, 0.94));
+  }
+
+  .secondary-button {
+    @apply inline-flex items-center justify-center gap-2 rounded-[1rem] border border-line/20 px-4 py-3 text-sm font-medium text-text-primary transition duration-200 hover:-translate-y-0.5 hover:border-signal/40 disabled:cursor-not-allowed disabled:opacity-60;
+    background-color: rgba(var(--surface), 0.72);
+  }
+
+  .ghost-button {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-line/20 px-4 py-2 text-sm text-text-primary transition duration-200 hover:border-signal/40 disabled:cursor-not-allowed disabled:opacity-50;
+    background-color: rgba(var(--surface), 0.55);
+  }
+
+  .monitor-panel {
+    @apply relative overflow-hidden rounded-[1.45rem] border border-line/15 shadow-card backdrop-blur-2xl;
+    background: linear-gradient(180deg, rgba(var(--surface), 0.9), rgba(var(--surface), 0.78));
+  }
+
+  .sidebar-link {
+    @apply flex items-center gap-3 rounded-[1rem] border border-transparent px-3 py-3 text-sm text-text-muted transition duration-200 hover:border-line/15 hover:text-text-primary;
+    background-color: transparent;
+  }
+
+  .sidebar-link-active {
+    @apply border-signal/25 text-white;
+    background: linear-gradient(135deg, rgba(41, 112, 232, 0.34), rgba(86, 199, 255, 0.16));
+    box-shadow: 0 12px 32px rgba(22, 75, 165, 0.22);
+  }
+
+  .sidebar-link-icon {
+    @apply flex h-9 w-9 items-center justify-center rounded-[0.95rem] border border-line/10 bg-surface-strong/60;
+  }
+
+  .monitor-kpi {
+    @apply relative overflow-hidden rounded-[1.25rem] border border-line/15 p-5 shadow-card backdrop-blur;
+    background: linear-gradient(
+      180deg,
+      rgba(var(--surface-strong), 0.8),
+      rgba(var(--surface), 0.86)
+    );
+  }
+
+  .monitor-badge {
+    @apply inline-flex items-center gap-2 rounded-full border border-line/15 px-3 py-1 text-xs uppercase tracking-[0.18em] text-text-muted;
+    background-color: rgba(var(--surface-strong), 0.44);
+  }
+
+  .monitor-table {
+    @apply w-full min-w-[720px] border-separate border-spacing-y-2;
+  }
+
+  .monitor-table thead th {
+    @apply px-4 py-2 text-left text-[0.68rem] uppercase tracking-[0.24em] text-text-muted;
+  }
+
+  .monitor-table tbody tr {
+    @apply rounded-2xl border border-line/10 bg-surface/55;
+  }
+
+  .monitor-table tbody td {
+    @apply px-4 py-3 text-sm text-text-primary;
+  }
+
+  .skeleton {
+    @apply relative overflow-hidden rounded-2xl bg-surface-strong/40;
+  }
+
+  .skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.16),
+      transparent
+    );
+    animation: shimmer 1.6s infinite;
+  }
+}
+
+.panel::before,
+.panel-strong::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--signal), 0.28),
+    transparent 35%,
+    rgba(var(--accent), 0.16)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 220ms ease;
+  pointer-events: none;
+}
+
+.panel:hover::before,
+.panel-strong:hover::before {
+  opacity: 1;
+}
+
+a,
+button,
+input,
+select,
+textarea {
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease,
+    opacity 180ms ease;
+}
+
+:focus-visible {
+  outline: 2px solid rgba(var(--signal), 0.7);
+  outline-offset: 2px;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes floatSlow {
+  0%,
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-12px) scale(1.03);
+  }
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.28;
+  }
+  100% {
+    transform: scale(1.08);
+    opacity: 0.08;
+  }
+}
+
+.ambient-orb {
+  animation: floatSlow 8s ease-in-out infinite;
+}
+
+.pulse-ring {
+  animation: pulseRing 2.8s ease-in-out infinite alternate;
+}
+
+.leaflet-container {
+  background: rgba(var(--surface-strong), 0.9);
+  font-family: var(--font-sora), sans-serif;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip,
+.leaflet-tooltip {
+  background: rgba(var(--surface-strong), 0.96);
+  color: rgb(var(--text-primary));
+  border: 1px solid rgba(var(--line), 0.16);
+  box-shadow: 0 18px 60px rgba(15, 23, 42, 0.18);
+}
+
+.leaflet-popup-content {
+  margin: 12px 14px;
+  line-height: 1.7;
+}
+
+.leaflet-tooltip {
+  border-radius: 999px;
+  padding: 0.4rem 0.7rem;
+}
