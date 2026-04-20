@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import { mongoose } from "../utils/vendor.js";
 import {
   DEFAULT_THRESHOLD_SETTINGS,
   SETTINGS_SCOPES
@@ -50,3 +50,4 @@ const systemSettingsSchema = new mongoose.Schema(
 export const SystemSettingsModel =
   mongoose.models.SystemSettings ||
   mongoose.model("SystemSettings", systemSettingsSchema);
+

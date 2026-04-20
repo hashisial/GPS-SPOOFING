@@ -1,4 +1,4 @@
-import { StatusCodes } from "http-status-codes";
+import { StatusCodes } from "../../utils/vendor.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
 import { getLiveMonitoringData, ingestGpsData } from "../../services/gps/gps.service.js";
 
@@ -20,3 +20,4 @@ export const getLiveGpsHandler = asyncHandler(async (req, res) => {
     ...result
   });
 });
+

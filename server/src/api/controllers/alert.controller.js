@@ -1,4 +1,4 @@
-import { StatusCodes } from "http-status-codes";
+import { StatusCodes } from "../../utils/vendor.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
 import {
   deleteAlert,
@@ -66,3 +66,4 @@ export const deleteAlertHandler = asyncHandler(async (req, res) => {
     result
   });
 });
+

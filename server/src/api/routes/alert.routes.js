@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router } from "../../utils/vendor.js";
 import {
   deleteAlertHandler,
   escalateAlertHandler,
@@ -58,3 +58,4 @@ alertRouter.delete(
   validateRequest(alertIdParamSchema),
   deleteAlertHandler
 );
+

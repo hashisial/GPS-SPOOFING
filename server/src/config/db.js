@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import { mongoose } from "../utils/vendor.js";
 import { env } from "./env.js";
 import { logger } from "./logger.js";
 
@@ -27,3 +27,4 @@ export async function disconnectDatabase() {
     await mongoose.disconnect();
   }
 }
+

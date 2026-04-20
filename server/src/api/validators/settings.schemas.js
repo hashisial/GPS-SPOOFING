@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "../../utils/vendor.js";
 
 export const updateSettingsSchema = {
   body: z
@@ -25,3 +25,4 @@ export const updateSettingsSchema = {
       message: "At least one settings field is required"
     })
 };
+

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import { mongoose } from "../../utils/vendor.js";
 
 export function healthController(_req, res) {
   const states = {
@@ -17,3 +17,4 @@ export function healthController(_req, res) {
     }
   });
 }
+

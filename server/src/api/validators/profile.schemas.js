@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "../../utils/vendor.js";
 
 export const updateProfileSchema = {
   body: z
@@ -10,3 +10,4 @@ export const updateProfileSchema = {
       message: "At least one profile field is required"
     })
 };
+

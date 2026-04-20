@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router } from "../../utils/vendor.js";
 import {
   exportReportHandler,
   generateReportHandler,
@@ -43,3 +43,4 @@ reportRouter.get(
   validateRequest(exportReportSchema),
   exportReportHandler
 );
+

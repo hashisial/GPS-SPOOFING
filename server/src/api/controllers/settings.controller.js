@@ -1,4 +1,4 @@
-import { StatusCodes } from "http-status-codes";
+import { StatusCodes } from "../../utils/vendor.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
 import { getSettings, updateSettings } from "../../services/settings/settings.service.js";
 
@@ -20,3 +20,4 @@ export const updateSettingsHandler = asyncHandler(async (req, res) => {
     settings
   });
 });
+

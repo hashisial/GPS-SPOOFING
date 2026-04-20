@@ -1,9 +1,9 @@
-import compression from "compression";
-import cookieParser from "cookie-parser";
-import cors from "cors";
-import express from "express";
-import helmet from "helmet";
-import pinoHttp from "pino-http";
+import { compression } from "./utils/vendor.js";
+import { cookieParser } from "./utils/vendor.js";
+import { cors } from "./utils/vendor.js";
+import { express } from "./utils/vendor.js";
+import { helmet } from "./utils/vendor.js";
+import { pinoHttp } from "./utils/vendor.js";
 import { randomUUID } from "node:crypto";
 import { apiRouter } from "./api/routes/index.routes.js";
 import { env } from "./config/env.js";
@@ -97,3 +97,9 @@ app.use(notFoundMiddleware);
 app.use(errorMiddleware);
 
 export { app };
+
+
+
+
+
+

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import { mongoose } from "../utils/vendor.js";
 import {
   ALERT_ACTION_VALUES,
   ALERT_SEVERITY_VALUES,
@@ -216,3 +216,4 @@ alertSchema.index({ title: "text", message: "text", deviceId: "text", deviceName
 alertSchema.index({ gpsLog: 1 }, { unique: true });
 
 export const AlertModel = mongoose.models.Alert || mongoose.model("Alert", alertSchema);
+

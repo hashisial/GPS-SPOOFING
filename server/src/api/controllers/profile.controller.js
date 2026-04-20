@@ -1,4 +1,4 @@
-import { StatusCodes } from "http-status-codes";
+import { StatusCodes } from "../../utils/vendor.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
 import { getProfile, updateProfile } from "../../services/profile/profile.service.js";
 
@@ -20,3 +20,4 @@ export const updateProfileHandler = asyncHandler(async (req, res) => {
     user
   });
 });
+

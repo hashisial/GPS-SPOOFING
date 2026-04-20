@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "../../utils/vendor.js";
 import { ALERT_SEVERITY_VALUES, ALERT_STATUS_VALUES } from "../../constants/alert.js";
 
 const objectIdSchema = z
@@ -64,3 +64,4 @@ export const escalateAlertSchema = {
     note: optionalNoteSchema
   })
 };
+

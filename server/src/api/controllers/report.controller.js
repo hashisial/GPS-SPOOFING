@@ -1,4 +1,4 @@
-import { StatusCodes } from "http-status-codes";
+import { StatusCodes } from "../../utils/vendor.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
 import {
   exportReport,
@@ -42,3 +42,4 @@ export const exportReportHandler = asyncHandler(async (req, res) => {
   res.setHeader("Content-Disposition", `attachment; filename="${exportedFile.fileName}"`);
   res.status(StatusCodes.OK).send(exportedFile.buffer);
 });
+

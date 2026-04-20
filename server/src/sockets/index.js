@@ -1,4 +1,4 @@
-import { Server } from "socket.io";
+import { Server } from "../utils/vendor.js";
 import { env } from "../config/env.js";
 import { logger } from "../config/logger.js";
 import { UserModel } from "../models/User.js";
@@ -136,3 +136,4 @@ export function emitAlertDeleted(payload) {
     at: new Date().toISOString()
   });
 }
+

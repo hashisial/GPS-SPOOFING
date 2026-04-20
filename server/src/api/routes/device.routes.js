@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router } from "../../utils/vendor.js";
 import {
   createDeviceHandler,
   deleteDeviceHandler,
@@ -50,3 +50,4 @@ deviceRouter.delete(
   validateRequest(deviceIdParamSchema),
   deleteDeviceHandler
 );
+

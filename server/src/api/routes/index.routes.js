@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router } from "../../utils/vendor.js";
 import { alertRouter } from "./alert.routes.js";
 import { authRouter } from "./auth.routes.js";
 import { dashboardRouter } from "./dashboard.routes.js";
@@ -22,3 +22,4 @@ apiRouter.use("/reports", reportRouter);
 apiRouter.use("/settings", settingsRouter);
 apiRouter.use("/users", userRouter);
 apiRouter.get("/health", healthController);
+

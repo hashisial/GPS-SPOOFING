@@ -1,4 +1,4 @@
-import { StatusCodes } from "http-status-codes";
+import { StatusCodes } from "../utils/vendor.js";
 import { UserModel } from "../models/User.js";
 import { ApiError } from "../utils/ApiError.js";
 import { verifyAccessToken } from "../utils/jwt.js";
@@ -69,3 +69,4 @@ export function authorize(...allowedRoles) {
     return next();
   };
 }
+

@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "../../utils/vendor.js";
 import { ROLE_VALUES } from "../../constants/roles.js";
 
 const objectIdSchema = z
@@ -68,3 +68,4 @@ export const blockUserSchema = {
     reason: z.string().trim().max(250).optional().default("Blocked by administrator")
   })
 };
+

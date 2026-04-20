@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "../../utils/vendor.js";
 import { ALERT_SEVERITY_VALUES, ALERT_STATUS_VALUES } from "../../constants/alert.js";
 import {
   REPORT_EXPORT_FORMAT_VALUES,
@@ -51,3 +51,4 @@ export const exportReportSchema = {
     format: z.enum(REPORT_EXPORT_FORMAT_VALUES)
   })
 };
+

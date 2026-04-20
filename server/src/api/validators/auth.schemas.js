@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "../../utils/vendor.js";
 import { ROLE_VALUES } from "../../constants/roles.js";
 
 const passwordSchema = z
@@ -56,3 +56,4 @@ export const resetPasswordSchema = {
       path: ["confirmPassword"]
     })
 };
+

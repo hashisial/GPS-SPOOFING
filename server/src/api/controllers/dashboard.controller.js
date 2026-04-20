@@ -1,4 +1,4 @@
-import { StatusCodes } from "http-status-codes";
+import { StatusCodes } from "../../utils/vendor.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
 import { getDashboardOverview } from "../../services/dashboard/dashboard.service.js";
 
@@ -10,3 +10,4 @@ export const getDashboardOverviewHandler = asyncHandler(async (_req, res) => {
     overview
   });
 });
+

@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "../../utils/vendor.js";
 import {
   DEVICE_ONLINE_FILTER_VALUES,
   DEVICE_STATUS_VALUES,
@@ -75,3 +75,4 @@ export const updateDeviceSchema = {
       message: "At least one field is required"
     })
 };
+

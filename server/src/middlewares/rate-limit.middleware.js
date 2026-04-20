@@ -1,4 +1,4 @@
-import rateLimit from "express-rate-limit";
+import { rateLimit } from "../utils/vendor.js";
 import { env } from "../config/env.js";
 
 export const globalRateLimiter = rateLimit({
@@ -23,3 +23,4 @@ export const authRateLimiter = rateLimit({
     message: "Too many authentication attempts, please try again later."
   }
 });
+

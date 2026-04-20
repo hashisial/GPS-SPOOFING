@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import { mongoose } from "../utils/vendor.js";
 import { REPORT_TYPE_VALUES } from "../constants/report.js";
 
 const reportSchema = new mongoose.Schema(
@@ -84,3 +84,4 @@ reportSchema.index({ type: 1, createdAt: -1 });
 reportSchema.index({ title: "text", deviceId: "text" });
 
 export const ReportModel = mongoose.models.Report || mongoose.model("Report", reportSchema);
+

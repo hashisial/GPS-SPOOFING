@@ -1,4 +1,4 @@
-import { StatusCodes } from "http-status-codes";
+import { StatusCodes } from "../../utils/vendor.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
 import {
   getRefreshCookieOptions,
@@ -115,3 +115,4 @@ export const me = asyncHandler(async (req, res) => {
     user
   });
 });
+

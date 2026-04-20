@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router } from "../../utils/vendor.js";
 import { authenticate } from "../../middlewares/auth.middleware.js";
 import { validateRequest } from "../../middlewares/validate.middleware.js";
 import {
@@ -12,3 +12,4 @@ export const profileRouter = Router();
 profileRouter.use(authenticate);
 profileRouter.get("/", getProfileHandler);
 profileRouter.patch("/", validateRequest(updateProfileSchema), updateProfileHandler);
+

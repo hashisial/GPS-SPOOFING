@@ -1,5 +1,5 @@
-import { StatusCodes } from "http-status-codes";
-import { ZodError } from "zod";
+import { StatusCodes } from "../utils/vendor.js";
+import { ZodError } from "../utils/vendor.js";
 import { ApiError } from "../utils/ApiError.js";
 
 function formatZodError(error) {
@@ -33,3 +33,5 @@ export function validateRequest(schema) {
     }
   };
 }
+
+

@@ -2,6 +2,56 @@
 
 A production-ready full-stack platform for detecting GNSS spoofing, triaging incidents in realtime, managing fleet inventory, exporting reports, and tuning alert policy through a futuristic operations console.
 
+## Current Repo Note
+
+This repository currently contains two application tracks:
+
+- `client/` + `server/`: the active MERN implementation
+- `frontend/` + `backend/` + `database/`: an older Next.js + Prisma prototype kept for reference
+
+If you want to run the current GPS Spoofing Detection MERN app, use `client/` and `server/`.
+Do not use the root `npm run dev` command for the MERN version because the root workspace scripts still target the older prototype.
+
+### MERN Quick Start
+
+Backend:
+
+```powershell
+Copy-Item server/.env.example server/.env
+cd server
+npm install
+npm run dev
+```
+
+Before starting the backend, edit `server/.env` and set:
+
+- `MONGODB_URI` to your local MongoDB or MongoDB Atlas connection string
+- `JWT_ACCESS_SECRET` to a long random secret
+- `JWT_REFRESH_SECRET` to a different long random secret
+
+Frontend:
+
+```powershell
+Copy-Item client/.env.example client/.env
+cd client
+npm install
+npm run dev
+```
+
+Frontend URL:
+
+- `http://localhost:5173`
+
+Backend URL:
+
+- `http://localhost:5000/api/v1`
+
+If the backend is offline, the frontend can still run in preview mode with demo credentials:
+
+- `admin@gpsshield.local` / `Admin123!`
+- `analyst@gpsshield.local` / `Analyst123!`
+- `viewer@gpsshield.local` / `Viewer123!`
+
 ## Highlights
 
 - Futuristic Next.js dashboard with animated 3D backgrounds, theme-aware dark/light mode, skeleton screens, hover polish, and realtime feed updates

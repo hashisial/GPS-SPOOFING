@@ -1,4 +1,4 @@
-import pino from "pino";
+import { pino } from "../utils/vendor.js";
 import { env } from "./env.js";
 
 export const logger = pino({
@@ -18,3 +18,4 @@ export const logger = pino({
   },
   timestamp: pino.stdTimeFunctions.isoTime
 });
+

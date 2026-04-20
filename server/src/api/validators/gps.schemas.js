@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "../../utils/vendor.js";
 
 export const ingestGpsDataSchema = {
   body: z.object({
@@ -19,3 +19,4 @@ export const listLiveGpsSchema = {
     trailLimit: z.coerce.number().int().min(2).max(50).optional().default(12)
   })
 };
+

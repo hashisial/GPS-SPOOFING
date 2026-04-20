@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router } from "../../utils/vendor.js";
 import {
   forgotPasswordHandler,
   login,
@@ -39,3 +39,4 @@ authRouter.post(
   resetPasswordHandler
 );
 authRouter.get("/me", authenticate, me);
+

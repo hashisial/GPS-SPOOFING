@@ -1,4 +1,4 @@
-import { StatusCodes } from "http-status-codes";
+import { StatusCodes } from "../../utils/vendor.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
 import {
   createDevice,
@@ -55,3 +55,4 @@ export const deleteDeviceHandler = asyncHandler(async (req, res) => {
     result
   });
 });
+

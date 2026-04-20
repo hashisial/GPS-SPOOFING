@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import { mongoose } from "../utils/vendor.js";
 import { DEVICE_STATUS, DEVICE_STATUS_VALUES, DEVICE_TYPE_VALUES } from "../constants/device.js";
 
 const objectIdField = {
@@ -86,3 +86,4 @@ deviceSchema.index({ lastSeen: -1 });
 deviceSchema.index({ deviceName: "text", deviceId: "text", notes: "text" });
 
 export const DeviceModel = mongoose.models.Device || mongoose.model("Device", deviceSchema);
+

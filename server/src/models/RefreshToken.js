@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import { mongoose } from "../utils/vendor.js";
 
 const refreshTokenSchema = new mongoose.Schema(
   {
@@ -56,3 +56,4 @@ refreshTokenSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 export const RefreshTokenModel =
   mongoose.models.RefreshToken ||
   mongoose.model("RefreshToken", refreshTokenSchema);
+

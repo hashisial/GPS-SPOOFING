@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router } from "../../utils/vendor.js";
 import { getLiveGpsHandler, ingestGpsDataHandler } from "../controllers/gps.controller.js";
 import { authenticate, authorize } from "../../middlewares/auth.middleware.js";
 import { ROLES } from "../../constants/roles.js";
@@ -21,3 +21,4 @@ gpsRouter.post(
   validateRequest(ingestGpsDataSchema),
   ingestGpsDataHandler
 );
+

@@ -1,4 +1,4 @@
-import { StatusCodes } from "http-status-codes";
+import { StatusCodes } from "../utils/vendor.js";
 import { env } from "../config/env.js";
 import { logger } from "../config/logger.js";
 
@@ -29,3 +29,4 @@ export function errorMiddleware(error, req, res, _next) {
       : {})
   });
 }
+

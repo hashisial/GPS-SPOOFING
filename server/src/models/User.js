@@ -1,5 +1,5 @@
-import bcrypt from "bcryptjs";
-import mongoose from "mongoose";
+import { bcrypt } from "../utils/vendor.js";
+import { mongoose } from "../utils/vendor.js";
 import { env } from "../config/env.js";
 import { ROLE_VALUES, ROLES } from "../constants/roles.js";
 
@@ -177,3 +177,5 @@ userSchema.methods.hasPasswordChangedAfter = function hasPasswordChangedAfter(jw
 };
 
 export const UserModel = mongoose.models.User || mongoose.model("User", userSchema);
+
+

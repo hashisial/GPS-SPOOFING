@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import { jwt } from "./vendor.js";
 import { env } from "../config/env.js";
 import { TOKEN_TYPES } from "../constants/auth.js";
 
@@ -42,3 +42,4 @@ export function verifyRefreshToken(token) {
 export function decodeToken(token) {
   return jwt.decode(token);
 }
+

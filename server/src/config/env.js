@@ -1,5 +1,5 @@
-import dotenv from "dotenv";
-import { z } from "zod";
+import { dotenv } from "../utils/vendor.js";
+import { z } from "../utils/vendor.js";
 import { REFRESH_COOKIE_DEFAULT_NAME } from "../constants/auth.js";
 
 dotenv.config();
@@ -118,3 +118,5 @@ export const env = {
   jwtAccessTtl: config.JWT_ACCESS_TTL,
   jwtRefreshTtl: config.JWT_REFRESH_TTL
 };
+
+

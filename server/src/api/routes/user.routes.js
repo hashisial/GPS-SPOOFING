@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router } from "../../utils/vendor.js";
 import {
   blockUserHandler,
   createUserHandler,
@@ -34,3 +34,4 @@ userRouter.patch(
 );
 userRouter.patch("/:userId/unblock", validateRequest(userIdParamSchema), unblockUserHandler);
 userRouter.delete("/:userId", validateRequest(userIdParamSchema), deleteUserHandler);
+

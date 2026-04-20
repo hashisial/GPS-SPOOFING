@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import { mongoose } from "../utils/vendor.js";
 
 const gpsLogSchema = new mongoose.Schema(
   {
@@ -78,3 +78,4 @@ gpsLogSchema.index({ device: 1, timestamp: -1 });
 gpsLogSchema.index({ device: 1, receivedAt: -1 });
 
 export const GpsLogModel = mongoose.models.GpsLog || mongoose.model("GpsLog", gpsLogSchema);
+
