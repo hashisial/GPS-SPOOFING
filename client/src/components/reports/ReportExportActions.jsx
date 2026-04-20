@@ -24,7 +24,7 @@ export function ReportExportActions({
   }
 
   return (
-    <div className={`flex flex-wrap gap-2 ${compact ? "" : "justify-end"}`.trim()}>
+    <div className={`flex flex-wrap gap-2 ${compact ? "" : "justify-start sm:justify-end"}`.trim()}>
       {REPORT_EXPORT_FORMATS.map((format) => {
         const exportKey = `${report.id}:${format}`;
         const isBusy = loadingKey === exportKey;
@@ -38,7 +38,7 @@ export function ReportExportActions({
               onExport(report, format);
             }}
             disabled={isBusy}
-            className={`rounded-2xl border px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] transition ${
+            className={`rounded-2xl border px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] transition sm:tracking-[0.16em] ${
               compact
                 ? "border-[var(--border)] text-[var(--text-secondary)] hover:border-[var(--accent)] hover:text-[var(--text-primary)]"
                 : "border-[var(--accent)] bg-[var(--accent-soft)] text-[var(--text-primary)]"

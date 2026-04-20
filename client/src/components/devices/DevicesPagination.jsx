@@ -12,7 +12,7 @@ export function DevicesPagination({ pagination, onPageChange }) {
   }
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3">
+    <div className="flex flex-col items-stretch justify-between gap-3 sm:flex-row sm:flex-wrap sm:items-center">
       <div className="text-sm text-[var(--text-secondary)]">
         Page {pagination.page} of {pagination.totalPages} - {pagination.total} devices
       </div>

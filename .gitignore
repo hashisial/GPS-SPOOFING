@@ -2,10 +2,9 @@ node_modules/
 .env
 .env.local
 .env.*.local
-.next/
 dist/
 coverage/
 *.log
-backend/uploads/
-database/postgres-data/
+server/uploads/
+.preview-logs/
 .video-frames/

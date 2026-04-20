@@ -2,22 +2,19 @@
   "name": "gps-spoofing-dashboard",
   "private": true,
   "workspaces": [
-    "frontend",
-    "backend",
-    "database"
+    "client",
+    "server"
   ],
   "scripts": {
-    "dev": "concurrently \"npm run dev --workspace frontend\" \"npm run dev --workspace backend\"",
-    "dev:frontend": "npm run dev --workspace frontend",
-    "dev:backend": "npm run dev --workspace backend",
-    "build": "npm run build --workspace frontend",
-    "start": "concurrently \"npm run start --workspace frontend\" \"npm run start --workspace backend\"",
-    "db:up": "docker compose -f database/docker-compose.yml up -d",
-    "db:down": "docker compose -f database/docker-compose.yml down",
-    "db:generate": "npm run generate --workspace database",
-    "db:migrate": "npm run migrate --workspace database",
-    "db:seed": "npm run seed --workspace database",
-    "postinstall": "npm run db:generate"
+    "dev": "concurrently -n server,client -c cyan,green \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "dev:client": "npm run dev --prefix client",
+    "dev:server": "npm run dev --prefix server",
+    "build": "npm run build --prefix client",
+    "start": "npm run build --prefix client && concurrently -n server,client -c cyan,green \"npm run start --prefix server\" \"npm run preview --prefix client -- --host 0.0.0.0 --port 5173\"",
+    "start:client": "npm run preview --prefix client -- --host 0.0.0.0 --port 5173",
+    "start:server": "npm run start --prefix server",
+    "lint": "npm run lint --prefix server && npm run lint --prefix client",
+    "test": "npm run test --prefix server && npm run test --prefix client -- --run"
   },
   "devDependencies": {
     "concurrently": "latest"

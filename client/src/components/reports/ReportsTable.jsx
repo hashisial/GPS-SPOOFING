@@ -46,11 +46,11 @@ export function ReportsTable({
           return (
             <div
               key={report.id}
-              className={`grid gap-4 px-5 py-5 transition lg:grid-cols-[1.2fr_0.7fr_0.9fr_0.85fr_1.2fr] lg:items-center ${
+              className={`grid gap-4 px-4 py-5 transition sm:px-5 lg:grid-cols-[1.2fr_0.7fr_0.9fr_0.85fr_1.2fr] lg:items-center ${
                 isSelected ? "bg-[var(--accent-soft)]/60" : "hover:bg-white/[0.02]"
               }`}
             >
-              <div>
+              <div className="min-w-0">
                 <div className="text-sm font-semibold text-[var(--text-primary)]">{report.title}</div>
                 <div className="mt-1 text-xs uppercase tracking-[0.16em] text-[var(--text-secondary)]">
                   {report.id}
@@ -84,11 +84,14 @@ export function ReportsTable({
                 </div>
               </div>
 
-              <div className="flex flex-wrap items-center gap-2">
+              <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
+                <div className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-secondary)] lg:hidden">
+                  Actions
+                </div>
                 <button
                   type="button"
                   onClick={() => onSelect(report.id)}
-                  className={`rounded-2xl border px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] transition ${
+                  className={`rounded-2xl border px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] transition sm:tracking-[0.16em] ${
                     isSelected
                       ? "border-[var(--accent)] bg-[var(--accent-soft)] text-[var(--text-primary)]"
                       : "border-[var(--border)] text-[var(--text-secondary)] hover:border-[var(--accent)] hover:text-[var(--text-primary)]"

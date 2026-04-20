@@ -282,7 +282,7 @@ export function UsersPage() {
             <option value="BLOCKED">Blocked</option>
           </select>
 
-          <div className="flex gap-2">
+          <div className="flex flex-col gap-2 sm:flex-row">
             <button
               type="submit"
               className="rounded-2xl border border-[var(--accent)] bg-[var(--accent-soft)] px-4 py-3 text-sm font-semibold text-[var(--text-primary)]"
@@ -355,16 +355,26 @@ export function UsersPage() {
               {usersState.data.map((user) => (
                 <div
                   key={user.id}
-                  className="grid gap-4 px-5 py-5 lg:grid-cols-[1fr_1fr_0.75fr_0.75fr_1.2fr] lg:items-center"
+                  className="grid gap-4 px-4 py-5 sm:px-5 lg:grid-cols-[1fr_1fr_0.75fr_0.75fr_1.2fr] lg:items-center"
                 >
-                  <div>
+                  <div className="min-w-0">
                     <div className="text-sm font-semibold text-[var(--text-primary)]">{user.name}</div>
                     <div className="mt-1 text-sm text-[var(--text-secondary)]">{user.email}</div>
                   </div>
 
-                  <div className="text-sm font-medium text-[var(--text-primary)]">{user.role}</div>
+                  <div>
+                    <div className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-secondary)] lg:hidden">
+                      Role
+                    </div>
+                    <div className="mt-1 text-sm font-medium text-[var(--text-primary)] lg:mt-0">
+                      {user.role}
+                    </div>
+                  </div>
 
                   <div>
+                    <div className="mb-1 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-secondary)] lg:hidden">
+                      Status
+                    </div>
                     <span
                       className={`inline-flex rounded-full border px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.16em] ${
                         user.isActive
@@ -376,16 +386,24 @@ export function UsersPage() {
                     </span>
                   </div>
 
-                  <div className="text-sm text-[var(--text-secondary)]">
-                    {user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleString() : "Never"}
+                  <div>
+                    <div className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-secondary)] lg:hidden">
+                      Last Login
+                    </div>
+                    <div className="mt-1 text-sm text-[var(--text-secondary)] lg:mt-0">
+                      {user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleString() : "Never"}
+                    </div>
                   </div>
 
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+                    <div className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-secondary)] lg:hidden">
+                      Actions
+                    </div>
                     <button
                       type="button"
                       onClick={() => openEditModal(user)}
                       disabled={busyUserId === user.id}
-                      className="rounded-2xl border border-[#00FFC6]/20 bg-[#00FFC6]/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#9DFFEB] transition disabled:cursor-not-allowed disabled:opacity-60"
+                      className="rounded-2xl border border-[#00FFC6]/20 bg-[#00FFC6]/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#9DFFEB] transition disabled:cursor-not-allowed disabled:opacity-60 sm:tracking-[0.16em]"
                     >
                       Edit
                     </button>
@@ -393,7 +411,7 @@ export function UsersPage() {
                       type="button"
                       onClick={() => handleStatusAction(user)}
                       disabled={busyUserId === user.id}
-                      className={`rounded-2xl border px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] transition ${
+                      className={`rounded-2xl border px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] transition sm:tracking-[0.16em] ${
                         user.isActive
                           ? "border-[#00FFC6]/20 bg-[#00FFC6]/10 text-[#9DFFEB]"
                           : "border-[#FF3B3B]/25 bg-[#FF3B3B]/10 text-[#FFB3B3]"
@@ -409,7 +427,7 @@ export function UsersPage() {
                       type="button"
                       onClick={() => handleDeleteUser(user)}
                       disabled={busyUserId === user.id}
-                      className="rounded-2xl border border-[#8B949E]/25 bg-[#8B949E]/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#C3CBD3] transition disabled:cursor-not-allowed disabled:opacity-60"
+                      className="rounded-2xl border border-[#8B949E]/25 bg-[#8B949E]/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#C3CBD3] transition disabled:cursor-not-allowed disabled:opacity-60 sm:tracking-[0.16em]"
                     >
                       Delete
                     </button>

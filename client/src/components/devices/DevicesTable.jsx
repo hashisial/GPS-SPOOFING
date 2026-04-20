@@ -39,9 +39,9 @@ export function DevicesTable({
         {devices.map((device) => (
           <div
             key={device.id}
-            className="grid gap-4 px-5 py-5 transition hover:bg-white/[0.02] lg:grid-cols-[1fr_0.9fr_0.85fr_0.95fr_0.95fr_0.9fr] lg:items-center"
+            className="grid gap-4 px-4 py-5 transition hover:bg-white/[0.02] sm:px-5 lg:grid-cols-[1fr_0.9fr_0.85fr_0.95fr_0.95fr_0.9fr] lg:items-center"
           >
-            <div>
+            <div className="min-w-0">
               <div className="text-sm font-semibold text-[var(--text-primary)]">{device.deviceName}</div>
               <div className="mt-1 text-xs uppercase tracking-[0.16em] text-[var(--text-secondary)]">
                 {device.deviceId}
@@ -87,26 +87,29 @@ export function DevicesTable({
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+              <div className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-secondary)] lg:hidden">
+                Actions
+              </div>
               {canManageDevices ? (
                 <>
                   <button
                     type="button"
                     onClick={() => onEdit(device)}
-                    className="rounded-xl border border-[var(--border)] px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-secondary)] transition hover:border-[var(--accent)] hover:text-[var(--text-primary)]"
+                    className="rounded-xl border border-[var(--border)] px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--text-secondary)] transition hover:border-[var(--accent)] hover:text-[var(--text-primary)] sm:tracking-[0.16em]"
                   >
                     Edit
                   </button>
                   <button
                     type="button"
                     onClick={() => onDelete(device)}
-                    className="rounded-xl border border-[#FF3B3B]/25 bg-[#FF3B3B]/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#FFB3B3] transition"
+                    className="rounded-xl border border-[#FF3B3B]/25 bg-[#FF3B3B]/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#FFB3B3] transition sm:tracking-[0.16em]"
                   >
                     Delete
                   </button>
                 </>
               ) : (
-                <span className="rounded-xl border border-[var(--border)] px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-secondary)]">
+                <span className="rounded-xl border border-[var(--border)] px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--text-secondary)] sm:tracking-[0.16em]">
                   View Only
                 </span>
               )}

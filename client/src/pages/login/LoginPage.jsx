@@ -155,7 +155,9 @@ export function LoginPage() {
       </div>
 
       <div className="relative mx-auto grid max-w-7xl gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-        <AuthShowcase />
+        <div className="hidden lg:block">
+          <AuthShowcase />
+        </div>
         <LoginFormCard
           values={values}
           showPassword={showPassword}

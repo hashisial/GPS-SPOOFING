@@ -68,7 +68,7 @@ export function DevicesFiltersBar({
         ))}
       </select>
 
-      <div className="flex gap-2">
+      <div className="flex flex-col gap-2 sm:flex-row">
         <button
           type="submit"
           className="rounded-2xl border border-[var(--accent)] bg-[var(--accent-soft)] px-4 py-3 text-sm font-semibold text-[var(--text-primary)]"
@@ -88,7 +88,7 @@ export function DevicesFiltersBar({
         <button
           type="button"
           onClick={onCreate}
-          className="rounded-2xl bg-[linear-gradient(135deg,#22d3ee,#0ea5e9)] px-5 py-3 text-sm font-semibold text-slate-950"
+          className="rounded-2xl bg-[linear-gradient(135deg,#00FFC6,#74FBE0)] px-5 py-3 text-sm font-semibold text-[#041018]"
         >
           Add Device
         </button>

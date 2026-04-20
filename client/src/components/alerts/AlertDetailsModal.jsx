@@ -71,14 +71,14 @@ export function AlertDetailsModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/75 px-4 py-6 backdrop-blur">
-      <div className="max-h-[92vh] w-full max-w-5xl overflow-hidden rounded-[2rem] border border-[var(--border)] bg-[var(--background-elevated)] shadow-2xl">
-        <div className="flex items-start justify-between gap-4 border-b border-[var(--border)] px-6 py-5">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--accent)]">
+    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-slate-950/75 px-3 py-4 backdrop-blur sm:items-center sm:px-4 sm:py-6">
+      <div className="max-h-[calc(100vh-2rem)] w-full max-w-5xl overflow-hidden rounded-[1.5rem] border border-[var(--border)] bg-[var(--background-elevated)] shadow-2xl sm:max-h-[92vh] sm:rounded-[2rem]">
+        <div className="flex items-start justify-between gap-3 border-b border-[var(--border)] px-4 py-4 sm:px-6 sm:py-5">
+          <div className="min-w-0">
+            <p className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--accent)] sm:text-xs sm:tracking-[0.24em]">
               Alert Details
             </p>
-            <h2 className="mt-2 text-2xl font-semibold text-[var(--text-primary)]">
+            <h2 className="mt-2 text-xl font-semibold leading-tight text-[var(--text-primary)] sm:text-2xl">
               {alert?.title ?? "Loading alert..."}
             </h2>
             {actionHint ? (
@@ -94,7 +94,7 @@ export function AlertDetailsModal({
           </button>
         </div>
 
-        <div className="max-h-[calc(92vh-5.5rem)] overflow-y-auto px-6 py-6">
+        <div className="max-h-[calc(100vh-8rem)] overflow-y-auto px-4 py-5 sm:max-h-[calc(92vh-5.5rem)] sm:px-6 sm:py-6">
           {isLoading ? (
             <div className="rounded-[1.5rem] border border-[var(--border)] bg-[var(--background-muted)] p-5 text-sm text-[var(--text-secondary)]">
               Loading alert details...
@@ -113,7 +113,7 @@ export function AlertDetailsModal({
                       <AlertBadge variant="status" value={alert.status} />
                     </div>
                     <p className="text-sm leading-6 text-[var(--text-secondary)]">{alert.message}</p>
-                    <div className="grid gap-3 sm:grid-cols-2 text-sm">
+                    <div className="grid gap-3 text-sm sm:grid-cols-2">
                       <div>
                         <div className="text-xs uppercase tracking-[0.16em] text-[var(--text-secondary)]">
                           Device

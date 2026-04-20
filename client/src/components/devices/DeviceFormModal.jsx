@@ -74,14 +74,14 @@ export function DeviceFormModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/75 px-4 py-6 backdrop-blur">
-      <div className="w-full max-w-2xl rounded-[2rem] border border-[var(--border)] bg-[var(--background-elevated)] shadow-2xl">
-        <div className="flex items-start justify-between gap-4 border-b border-[var(--border)] px-6 py-5">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--accent)]">
+    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-slate-950/75 px-3 py-4 backdrop-blur sm:items-center sm:px-4 sm:py-6">
+      <div className="w-full max-w-2xl overflow-hidden rounded-[1.5rem] border border-[var(--border)] bg-[var(--background-elevated)] shadow-2xl sm:rounded-[2rem]">
+        <div className="flex items-start justify-between gap-3 border-b border-[var(--border)] px-4 py-4 sm:px-6 sm:py-5">
+          <div className="min-w-0">
+            <p className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--accent)] sm:text-xs sm:tracking-[0.24em]">
               Device Management
             </p>
-            <h2 className="mt-2 text-2xl font-semibold text-[var(--text-primary)]">{title}</h2>
+            <h2 className="mt-2 text-xl font-semibold leading-tight text-[var(--text-primary)] sm:text-2xl">{title}</h2>
           </div>
           <button
             type="button"
@@ -92,7 +92,7 @@ export function DeviceFormModal({
           </button>
         </div>
 
-        <form className="space-y-5 px-6 py-6" onSubmit={handleSubmit}>
+        <form className="max-h-[calc(100vh-9rem)] space-y-5 overflow-y-auto px-4 py-5 sm:max-h-none sm:px-6 sm:py-6" onSubmit={handleSubmit}>
           <div className="grid gap-4 md:grid-cols-2">
             <div>
               <label className="text-sm font-medium text-[var(--text-primary)]">Device Name</label>
@@ -184,7 +184,7 @@ export function DeviceFormModal({
             </div>
           ) : null}
 
-          <div className="flex flex-wrap justify-end gap-3">
+          <div className="flex flex-col-reverse gap-3 sm:flex-row sm:flex-wrap sm:justify-end">
             <button
               type="button"
               onClick={onClose}
@@ -195,7 +195,7 @@ export function DeviceFormModal({
             <button
               type="submit"
               disabled={isSubmitting}
-              className="rounded-2xl bg-[linear-gradient(135deg,#22d3ee,#0ea5e9)] px-5 py-3 text-sm font-semibold text-slate-950 disabled:cursor-not-allowed disabled:opacity-60"
+              className="rounded-2xl bg-[linear-gradient(135deg,#00FFC6,#74FBE0)] px-5 py-3 text-sm font-semibold text-[#041018] disabled:cursor-not-allowed disabled:opacity-60"
             >
               {isSubmitting ? "Saving..." : mode === "edit" ? "Save Changes" : "Create Device"}
             </button>

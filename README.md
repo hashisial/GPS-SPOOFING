@@ -1,221 +1,185 @@
 # GPS Spoofing Detection & Visualization Dashboard
 
-A production-ready full-stack platform for detecting GNSS spoofing, triaging incidents in realtime, managing fleet inventory, exporting reports, and tuning alert policy through a futuristic operations console.
-
-## Current Repo Note
-
-This repository currently contains two application tracks:
-
-- `client/` + `server/`: the active MERN implementation
-- `frontend/` + `backend/` + `database/`: an older Next.js + Prisma prototype kept for reference
-
-If you want to run the current GPS Spoofing Detection MERN app, use `client/` and `server/`.
-Do not use the root `npm run dev` command for the MERN version because the root workspace scripts still target the older prototype.
-
-### MERN Quick Start
-
-Backend:
-
-```powershell
-Copy-Item server/.env.example server/.env
-cd server
-npm install
-npm run dev
-```
-
-Before starting the backend, edit `server/.env` and set:
-
-- `MONGODB_URI` to your local MongoDB or MongoDB Atlas connection string
-- `JWT_ACCESS_SECRET` to a long random secret
-- `JWT_REFRESH_SECRET` to a different long random secret
-
-Frontend:
-
-```powershell
-Copy-Item client/.env.example client/.env
-cd client
-npm install
-npm run dev
-```
-
-Frontend URL:
-
-- `http://localhost:5173`
-
-Backend URL:
-
-- `http://localhost:5000/api/v1`
-
-If the backend is offline, the frontend can still run in preview mode with demo credentials:
-
-- `admin@gpsshield.local` / `Admin123!`
-- `analyst@gpsshield.local` / `Analyst123!`
-- `viewer@gpsshield.local` / `Viewer123!`
-
-## Highlights
-
-- Futuristic Next.js dashboard with animated 3D backgrounds, theme-aware dark/light mode, skeleton screens, hover polish, and realtime feed updates
-- Secure Express API with JWT auth, RBAC, Zod request validation, rate limiting, Helmet, compression, and protected report exports
-- PostgreSQL + Prisma data model for users, devices, detections, system thresholds, and notification preferences
-- Admin panel for user and device management with inline editing, search, promotion/demotion, enable/disable, and device status controls
-- Settings console for global thresholds plus user notification preferences
-- Filter-aware CSV and PDF exports for operational reporting
+A production-ready MERN platform for GPS spoofing detection, realtime monitoring, alert triage, fleet/device management, and operational reports.
 
 ## Stack
 
-- Frontend: Next.js (React) + Tailwind CSS + Framer Motion + Three.js + React Leaflet/OpenStreetMap
+- Frontend: React + Vite + React Router + Redux Toolkit + Tailwind CSS + Leaflet
 - Backend: Node.js + Express.js + Socket.io
-- Database: PostgreSQL + Prisma ORM
-- Auth: JWT with role-based access (`ADMIN`, `USER`)
+- Database: MongoDB + Mongoose
+- Auth: JWT access tokens, refresh tokens, and RBAC roles `SUPER_ADMIN`, `SECURITY_ANALYST`, `VIEWER`
 
 ## Folder Structure
 
 ```text
 project/
-|-- backend/
+|-- client/
 |   |-- package.json
 |   |-- .env.example
 |   `-- src/
-|       |-- app.js
-|       |-- server.js
-|       |-- config/
-|       |-- constants/
-|       |-- controllers/
-|       |-- middleware/
+|       |-- app/
+|       |-- components/
+|       |-- hooks/
+|       |-- pages/
 |       |-- routes/
 |       |-- services/
-|       |-- sockets/
-|       |-- utils/
-|       `-- validation/
-|-- database/
+|       |-- styles/
+|       `-- utils/
+|-- server/
+|   |-- package.json
 |   |-- .env.example
-|   |-- package.json
-|   |-- docker-compose.yml
-|   |-- prisma/
-|   |   `-- schema.prisma
-|   `-- seed/
-|       `-- seed.js
-|-- frontend/
-|   |-- package.json
-|   |-- .env.local.example
-|   |-- next.config.mjs
-|   |-- app/
-|   |-- components/
-|   |-- hooks/
-|   |-- lib/
-|   |-- jsconfig.json
-|   |-- postcss.config.js
-|   `-- tailwind.config.js
+|   `-- src/
+|       |-- api/
+|       |-- config/
+|       |-- constants/
+|       |-- middlewares/
+|       |-- models/
+|       |-- services/
+|       |-- sockets/
+|       `-- utils/
+|-- DEPLOYMENT_GUIDE_MERN.md
 |-- package.json
+|-- render.yaml
 `-- README.md
 ```
 
-## Basic Setup
+## Local Setup
 
-PowerShell:
+Install dependencies:
 
 ```powershell
 npm install
-Copy-Item backend/.env.example backend/.env
-Copy-Item database/.env.example database/.env
-Copy-Item frontend/.env.local.example frontend/.env.local
-npm run db:up
-npm run db:migrate
-npm run db:seed
+```
+
+Create env files:
+
+```powershell
+Copy-Item server/.env.example server/.env
+Copy-Item client/.env.example client/.env
+```
+
+Edit `server/.env`:
+
+```env
+MONGODB_URI=mongodb://127.0.0.1:27017/gps-spoofing
+JWT_ACCESS_SECRET=your-long-random-access-secret
+JWT_REFRESH_SECRET=your-long-random-refresh-secret
+```
+
+Start development:
+
+```powershell
 npm run dev
 ```
 
-Production entrypoints:
+URLs:
+
+- Frontend: `http://localhost:5173`
+- Backend API: `http://localhost:5000/api/v1`
+- Socket.io: `http://localhost:5000`
+
+Production-style local preview:
 
 ```powershell
-npm run build
 npm run start
 ```
 
-App URLs:
+## Demo Login
 
-- Frontend: `http://localhost:3000`
-- Backend API: `http://localhost:5000/api/v1`
-- Socket.io: `ws://localhost:5000`
+If the backend or MongoDB is offline, the React client can still run in demo preview mode:
 
-Seeded credentials:
+- `admin@gpsshield.local` / `Admin123!`
+- `analyst@gpsshield.local` / `Analyst123!`
+- `viewer@gpsshield.local` / `Viewer123!`
 
-- Admin: `admin@gpsshield.local` / `Admin123!`
-- User: `analyst@gpsshield.local` / `User123!`
+For real backend login, register the first account through `/api/v1/auth/register`; the first user becomes `SUPER_ADMIN`.
 
-## Production Notes
+## Available Scripts
 
-- Frontend ships with security headers through `next.config.mjs`
-- Backend validates runtime env values and rejects unsafe production JWT defaults
-- Report downloads are authenticated, rate-limited, and marked `Cache-Control: private, no-store`
-- REST APIs are versioned under `/api/v1`
-- Detection/device/user list endpoints support pagination and search
-- Heavy visuals are lazy-loaded to reduce initial bundle work
+```powershell
+npm run dev
+npm run build
+npm run start
+npm run lint
+npm run test
+```
 
-## API Structure
+## API Overview
 
-### Auth
+Auth:
 
 - `POST /api/v1/auth/register`
 - `POST /api/v1/auth/login`
+- `POST /api/v1/auth/refresh-token`
+- `POST /api/v1/auth/logout`
+- `POST /api/v1/auth/forgot-password`
+- `POST /api/v1/auth/reset-password`
 - `GET /api/v1/auth/me`
 
-### Users
+Dashboard and GPS:
 
-- `GET /api/v1/users` (`ADMIN`)
-- `POST /api/v1/users` (`ADMIN`)
-- `PATCH /api/v1/users/:id` (`ADMIN`)
+- `GET /api/v1/dashboard/overview`
+- `GET /api/v1/gps/live`
+- `POST /api/v1/gps/data`
 
-### Devices
+Users:
+
+- `GET /api/v1/users`
+- `GET /api/v1/users/:userId`
+- `POST /api/v1/users`
+- `PATCH /api/v1/users/:userId`
+- `PATCH /api/v1/users/:userId/block`
+- `PATCH /api/v1/users/:userId/unblock`
+- `DELETE /api/v1/users/:userId`
+
+Devices:
 
 - `GET /api/v1/devices`
-- `POST /api/v1/devices` (`ADMIN`)
-- `PATCH /api/v1/devices/:id` (`ADMIN`)
+- `GET /api/v1/devices/:deviceId`
+- `POST /api/v1/devices`
+- `PATCH /api/v1/devices/:deviceId`
+- `DELETE /api/v1/devices/:deviceId`
 
-### Detections
+Alerts:
 
-- `GET /api/v1/detections`
-  - Query: `page`, `pageSize`, `search`, `severity`, `status`
-- `GET /api/v1/detections/summary`
-- `POST /api/v1/detections` (`ADMIN`)
-- `PATCH /api/v1/detections/:id/status` (`ADMIN`)
+- `GET /api/v1/alerts`
+- `GET /api/v1/alerts/:alertId`
+- `PATCH /api/v1/alerts/:alertId/resolve`
+- `PATCH /api/v1/alerts/:alertId/false-positive`
+- `PATCH /api/v1/alerts/:alertId/escalate`
+- `DELETE /api/v1/alerts/:alertId`
 
-### Settings
+Reports:
 
-- `GET /api/v1/settings/system`
-- `PUT /api/v1/settings/system` (`ADMIN`)
-- `GET /api/v1/settings/notifications`
-- `PUT /api/v1/settings/notifications`
+- `POST /api/v1/reports`
+- `GET /api/v1/reports`
+- `GET /api/v1/reports/:reportId`
+- `GET /api/v1/reports/:reportId/export?format=pdf|csv|excel`
 
-### Reports
+Profile and Settings:
 
-- `GET /api/v1/reports/detections.csv`
-- `GET /api/v1/reports/detections.pdf`
-  - Query: `search`, `severity`, `status`, `limit`
-
-### Health
-
+- `GET /api/v1/profile`
+- `PATCH /api/v1/profile`
+- `GET /api/v1/settings`
+- `PATCH /api/v1/settings`
 - `GET /api/v1/health`
 
-### Socket Events
+## Realtime Events
 
-- Client connects with JWT in `auth.token`
-- Server emits `connection:ready`
-- Server emits `detection:created`
-- Server emits `detection:status`
+The Socket.io server requires a valid JWT access token in `auth.token`.
 
-## UX Features
+Server emits:
 
-- Animated 3D mission background and rotating hero visualization
-- Global loading screen plus route-level and component-level skeletons
-- Theme toggle with persisted dark/light preference
-- Filterable live dashboard with export-aware query state
-- Admin console with search and inline edit flows
-- Settings console for thresholds and notification routing
+- `system:connected`
+- `gps:movement`
+- `alerts:created`
+- `alerts:updated`
+- `alerts:deleted`
+- `dashboard:refresh`
 
-## Architecture Notes
+## Production Notes
 
-- MVC-style Express backend with controllers, services, middleware, validation, and socket layer separation
-- Database assets isolated in `/database` for schema, migrations, and Dockerized Postgres
-- Frontend consumes backend strictly through REST + Socket.io
-- Prisma queries are pagination-aware and use selective field retrieval for better performance
+- See `DEPLOYMENT_GUIDE_MERN.md` for Vercel, Render, and MongoDB Atlas deployment.
+- Never commit real `.env` files or production secrets.
+- Use strong unique values for `JWT_ACCESS_SECRET` and `JWT_REFRESH_SECRET`.
+- In production, configure Render `CLIENT_URL` to match the Vercel frontend URL.

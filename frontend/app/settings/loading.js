@@ -1,6 +1,0 @@
-import { LoadingScreen } from "@/components/ui/loading-screen";
-
-export default function SettingsLoading() {
-  return <LoadingScreen label="Synchronizing thresholds and notifications..." />;
-}
-

@@ -7,7 +7,7 @@ function ActionButtons({ alert, canManageAlerts, onOpenDetails, onPrepareAction 
       <button
         type="button"
         onClick={() => onOpenDetails(alert.id)}
-        className="rounded-xl border border-[var(--border)] px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-secondary)] transition hover:border-[var(--accent)] hover:text-[var(--text-primary)]"
+        className="w-full rounded-xl border border-[var(--border)] px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--text-secondary)] transition hover:border-[var(--accent)] hover:text-[var(--text-primary)] sm:w-auto sm:tracking-[0.16em]"
       >
         Details
       </button>
@@ -15,11 +15,11 @@ function ActionButtons({ alert, canManageAlerts, onOpenDetails, onPrepareAction 
   }
 
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
       <button
         type="button"
         onClick={() => onOpenDetails(alert.id)}
-        className="rounded-xl border border-[var(--border)] px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-secondary)] transition hover:border-[var(--accent)] hover:text-[var(--text-primary)]"
+        className="rounded-xl border border-[var(--border)] px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--text-secondary)] transition hover:border-[var(--accent)] hover:text-[var(--text-primary)] sm:tracking-[0.16em]"
       >
         Details
       </button>
@@ -27,7 +27,7 @@ function ActionButtons({ alert, canManageAlerts, onOpenDetails, onPrepareAction 
         type="button"
         disabled={!canActOnAlert(alert)}
         onClick={() => onPrepareAction(alert.id, "resolve")}
-        className="rounded-xl border border-[#00FFC6]/20 bg-[#00FFC6]/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#9DFFEB] transition disabled:cursor-not-allowed disabled:opacity-40"
+        className="rounded-xl border border-[#00FFC6]/20 bg-[#00FFC6]/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#9DFFEB] transition disabled:cursor-not-allowed disabled:opacity-40 sm:tracking-[0.16em]"
       >
         Resolve
       </button>
@@ -35,7 +35,7 @@ function ActionButtons({ alert, canManageAlerts, onOpenDetails, onPrepareAction 
         type="button"
         disabled={!canActOnAlert(alert)}
         onClick={() => onPrepareAction(alert.id, "falsePositive")}
-        className="rounded-xl border border-[#8B949E]/25 bg-[#8B949E]/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#C3CBD3] transition disabled:cursor-not-allowed disabled:opacity-40"
+        className="rounded-xl border border-[#8B949E]/25 bg-[#8B949E]/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#C3CBD3] transition disabled:cursor-not-allowed disabled:opacity-40 sm:tracking-[0.16em]"
       >
         False Positive
       </button>
@@ -79,8 +79,8 @@ export function AlertsTable({
 
       <div className="divide-y divide-[var(--border)]">
         {alerts.map((alert) => (
-          <div key={alert.id} className="grid gap-4 px-5 py-5 lg:grid-cols-[1.2fr_0.95fr_0.9fr_0.8fr_0.8fr_1fr] lg:items-center">
-            <div>
+          <div key={alert.id} className="grid gap-4 px-4 py-5 sm:px-5 lg:grid-cols-[1.2fr_0.95fr_0.9fr_0.8fr_0.8fr_1fr] lg:items-center">
+            <div className="min-w-0">
               <div className="text-sm font-semibold text-[var(--text-primary)]">{alert.title}</div>
               <div className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">
                 {alert.message}
@@ -90,7 +90,10 @@ export function AlertsTable({
               </div>
             </div>
 
-            <div>
+            <div className="min-w-0">
+              <div className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-secondary)] lg:hidden">
+                Device
+              </div>
               <div className="text-sm font-medium text-[var(--text-primary)]">{alert.deviceName}</div>
               <div className="mt-1 text-xs uppercase tracking-[0.16em] text-[var(--text-secondary)]">
                 {alert.deviceId}
@@ -98,23 +101,39 @@ export function AlertsTable({
             </div>
 
             <div>
+              <div className="mb-1 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-secondary)] lg:hidden">
+                Severity
+              </div>
               <AlertBadge value={alert.severity} />
             </div>
 
             <div>
+              <div className="mb-1 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-secondary)] lg:hidden">
+                Status
+              </div>
               <AlertBadge variant="status" value={alert.status} />
             </div>
 
-            <div className="text-sm text-[var(--text-secondary)]">
-              {formatAlertDate(alert.triggeredAt)}
+            <div>
+              <div className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-secondary)] lg:hidden">
+                Triggered
+              </div>
+              <div className="mt-1 text-sm text-[var(--text-secondary)] lg:mt-0">
+                {formatAlertDate(alert.triggeredAt)}
+              </div>
             </div>
 
-            <ActionButtons
-              alert={alert}
-              canManageAlerts={canManageAlerts}
-              onOpenDetails={onOpenDetails}
-              onPrepareAction={onPrepareAction}
-            />
+            <div>
+              <div className="mb-2 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-secondary)] lg:hidden">
+                Actions
+              </div>
+              <ActionButtons
+                alert={alert}
+                canManageAlerts={canManageAlerts}
+                onOpenDetails={onOpenDetails}
+                onPrepareAction={onPrepareAction}
+              />
+            </div>
           </div>
         ))}
       </div>

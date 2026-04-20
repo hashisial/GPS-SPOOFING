@@ -72,7 +72,7 @@ export function LiveMonitoringMap({ devices, selectedDeviceId, className = "" })
         center={DEFAULT_CENTER}
         zoom={10}
         scrollWheelZoom
-        className="h-[28rem] w-full bg-slate-950 md:h-[34rem]"
+        className="h-[22rem] w-full bg-slate-950 sm:h-[28rem] md:h-[34rem]"
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -109,7 +109,7 @@ export function LiveMonitoringMap({ devices, selectedDeviceId, className = "" })
                 }}
               >
                 <Popup>
-                  <div className="min-w-[14rem] space-y-2 text-sm text-slate-900">
+                  <div className="max-w-[70vw] space-y-2 text-sm text-slate-900 sm:min-w-[14rem]">
                     <div>
                       <div className="font-semibold">{device.deviceName}</div>
                       <div className="text-xs uppercase tracking-[0.12em] text-slate-500">

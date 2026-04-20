@@ -167,7 +167,7 @@ export function DashboardPage() {
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--text-secondary)]">
             System Snapshot
           </p>
-          <div className="mt-5 grid grid-cols-2 gap-4">
+          <div className="mt-5 grid gap-4 sm:grid-cols-2">
             <div className="rounded-[1.5rem] border border-[var(--border)] bg-[var(--background-muted)] p-4">
               <div className="text-xs uppercase tracking-[0.18em] text-[var(--text-secondary)]">
                 Online Ratio
@@ -267,7 +267,7 @@ export function DashboardPage() {
                 </div>
 
                 <div className="rounded-[1.5rem] border border-[var(--border)] bg-[var(--background-muted)] p-5 sm:col-span-2">
-                  <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
                     <div>
                       <div className="text-xs uppercase tracking-[0.18em] text-[var(--text-secondary)]">
                         Response Priority
