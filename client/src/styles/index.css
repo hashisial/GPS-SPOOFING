@@ -258,6 +258,57 @@ button {
   animation-delay: 1.35s;
 }
 
+html[data-theme="light"] .gps-signal-backdrop {
+  background:
+    radial-gradient(circle at 18% 14%, rgba(27, 194, 213, 0.18), transparent 18rem),
+    radial-gradient(circle at 82% 10%, rgba(20, 80, 82, 0.1), transparent 20rem),
+    radial-gradient(circle at 68% 86%, rgba(27, 194, 213, 0.12), transparent 24rem),
+    linear-gradient(135deg, #ffffff 0%, #ffffff 48%, rgba(20, 80, 82, 0.08) 100%);
+}
+
+html[data-theme="light"] .gps-signal-backdrop::before {
+  background:
+    linear-gradient(rgba(20, 80, 82, 0.065) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20, 80, 82, 0.065) 1px, transparent 1px);
+  opacity: 0.5;
+}
+
+html[data-theme="light"] .gps-signal-backdrop::after {
+  background:
+    linear-gradient(120deg, transparent 0%, rgba(27, 194, 213, 0.12) 46%, transparent 58%),
+    repeating-linear-gradient(180deg, rgba(20, 80, 82, 0.035) 0, rgba(20, 80, 82, 0.035) 1px, transparent 1px, transparent 12px);
+  opacity: 0.18;
+}
+
+html[data-theme="light"] .gps-signal-backdrop__mesh {
+  background:
+    radial-gradient(circle at 30% 50%, transparent 0 7rem, rgba(27, 194, 213, 0.16) 7.08rem, transparent 7.2rem),
+    radial-gradient(circle at 72% 44%, transparent 0 10rem, rgba(20, 80, 82, 0.12) 10.08rem, transparent 10.22rem);
+  opacity: 0.55;
+}
+
+html[data-theme="light"] .gps-signal-backdrop__orbit {
+  border-color: rgba(20, 80, 82, 0.16);
+  box-shadow: 0 0 48px rgba(27, 194, 213, 0.08);
+}
+
+html[data-theme="light"] .gps-signal-backdrop__orbit--two {
+  border-color: rgba(27, 194, 213, 0.18);
+}
+
+html[data-theme="light"] .gps-signal-backdrop__route {
+  background: linear-gradient(90deg, transparent, rgba(20, 80, 82, 0.26), rgba(27, 194, 213, 0.46), transparent);
+  box-shadow: 0 0 18px rgba(27, 194, 213, 0.14);
+  opacity: 0.34;
+}
+
+html[data-theme="light"] .gps-signal-backdrop__beacon {
+  background: #1bc2d5;
+  box-shadow:
+    0 0 0 0 rgba(27, 194, 213, 0.22),
+    0 0 22px rgba(27, 194, 213, 0.38);
+}
+
 .dashboard-panel::after {
   content: "";
   position: absolute;
@@ -267,6 +318,13 @@ button {
     radial-gradient(circle at top right, rgba(27, 194, 213, 0.12), transparent 28%),
     linear-gradient(120deg, transparent 20%, rgba(255, 255, 255, 0.045) 50%, transparent 80%);
   opacity: 0.9;
+}
+
+html[data-theme="light"] .dashboard-panel::after {
+  background:
+    radial-gradient(circle at top right, rgba(27, 194, 213, 0.1), transparent 30%),
+    linear-gradient(120deg, transparent 20%, rgba(255, 255, 255, 0.68) 50%, transparent 82%);
+  opacity: 0.72;
 }
 
 .dashboard-panel > * {
@@ -379,6 +437,10 @@ button {
   padding: 0.3rem;
 }
 
+html[data-theme="light"] .animated-tabs {
+  background: rgba(20, 80, 82, 0.08);
+}
+
 .animated-tab {
   position: relative;
   overflow: hidden;
@@ -454,6 +516,10 @@ button {
   background: rgba(20, 80, 82, 0.32);
 }
 
+html[data-theme="light"] .skeleton-shimmer {
+  background: rgba(20, 80, 82, 0.08);
+}
+
 .skeleton-shimmer::after {
   animation: shimmer 1.35s ease-in-out infinite;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.09), transparent);
@@ -513,6 +579,28 @@ button {
     var(--accent-soft);
   border: 1px solid rgba(27, 194, 213, 0.42);
   z-index: -1;
+}
+
+html[data-theme="light"] .nav-active-indicator {
+  background:
+    linear-gradient(135deg, rgba(27, 194, 213, 0.16), rgba(255, 255, 255, 0.72)),
+    rgba(27, 194, 213, 0.12);
+}
+
+html[data-theme="light"] [class*="bg-[#FFFFFF]"] {
+  background-color: rgba(20, 80, 82, 0.08) !important;
+}
+
+html[data-theme="light"] [class*="border-[#FFFFFF]"] {
+  border-color: rgba(20, 80, 82, 0.18) !important;
+}
+
+html[data-theme="light"] [class*="hover:bg-white"] {
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
 }
 
 .leaflet-cyber-tooltip {
@@ -717,6 +805,28 @@ input:focus,
 select:focus,
 textarea:focus {
   transform: translateY(-1px);
+}
+
+html[data-theme="light"] .dashboard-panel,
+html[data-theme="light"] .glass-panel,
+html[data-theme="light"] [class*="bg-[var(--background-elevated)]"] {
+  background:
+    linear-gradient(180deg, rgba(27, 194, 213, 0.07), rgba(255, 255, 255, 0) 58%),
+    rgba(255, 255, 255, 0.96) !important;
+  color: #000000;
+}
+
+html[data-theme="light"] [class*="bg-[var(--background-muted)]"] {
+  background-color: rgba(20, 80, 82, 0.07) !important;
+}
+
+html[data-theme="light"] .dashboard-panel:hover,
+html[data-theme="light"] .interactive-card:hover {
+  border-color: rgba(27, 194, 213, 0.46) !important;
+  box-shadow:
+    0 22px 58px rgba(20, 80, 82, 0.16),
+    0 0 28px rgba(27, 194, 213, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82) !important;
 }
 
 @media (max-width: 640px) {
