@@ -1,3 +1,5 @@
+import { motion, useReducedMotion } from "framer-motion";
+
 function formatTimestamp(value) {
   if (!value) {
     return "No signal";
@@ -10,6 +12,8 @@ function formatTimestamp(value) {
 }
 
 export function DeviceTelemetryList({ devices, selectedDeviceId, onSelectDevice }) {
+  const shouldReduceMotion = useReducedMotion();
+
   if (devices.length === 0) {
     return (
       <div className="rounded-[1.5rem] border border-[var(--border)] bg-[var(--background-muted)] p-4 text-sm text-[var(--text-secondary)]">
@@ -20,11 +24,16 @@ export function DeviceTelemetryList({ devices, selectedDeviceId, onSelectDevice 
 
   return (
     <div className="space-y-3">
-      {devices.map((device) => (
-        <button
+      {devices.map((device, index) => (
+        <motion.button
           key={device.id}
           type="button"
           onClick={() => onSelectDevice(device.id)}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          whileHover={shouldReduceMotion ? undefined : { scale: 1.015, x: 3 }}
+          whileTap={shouldReduceMotion ? undefined : { scale: 0.985 }}
+          transition={{ duration: 0.24, delay: shouldReduceMotion ? 0 : index * 0.035 }}
           className={`w-full rounded-[1.5rem] border p-4 text-left transition ${
             device.id === selectedDeviceId
               ? "border-[var(--accent)] bg-[var(--accent-soft)]"
@@ -43,8 +52,8 @@ export function DeviceTelemetryList({ devices, selectedDeviceId, onSelectDevice 
             <div
               className={`rounded-full border px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.16em] ${
                 device.isOnline
-                  ? "border-[#00FFC6]/20 bg-[#00FFC6]/10 text-[#9DFFEB]"
-                  : "border-slate-500/20 bg-slate-500/10 text-slate-300"
+                  ? "border-[#1BC2D5]/20 bg-[#1BC2D5]/10 text-[var(--text-primary)]"
+                  : "border-[#145052]/25 bg-[#145052]/10 text-[var(--text-primary)]"
               }`}
             >
               {device.isOnline ? "Online" : "Offline"}
@@ -69,7 +78,7 @@ export function DeviceTelemetryList({ devices, selectedDeviceId, onSelectDevice 
               </div>
             </div>
           </div>
-        </button>
+        </motion.button>
       ))}
     </div>
   );

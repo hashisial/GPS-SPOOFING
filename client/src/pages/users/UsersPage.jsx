@@ -1,5 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { PageIntro } from "../../components/common/PageIntro.jsx";
+import {
+  AnimatedButton,
+  AnimatedItem,
+  SkeletonBlock,
+  StaggeredList
+} from "../../components/animations/MotionPrimitives.jsx";
 import { PanelCard } from "../../components/dashboard/PanelCard.jsx";
 import { UserFormModal } from "../../components/users/UserFormModal.jsx";
 import { userService } from "../../services/users/user.service.js";
@@ -292,7 +298,7 @@ export function UsersPage() {
             <button
               type="button"
               onClick={openCreateModal}
-              className="rounded-2xl border border-[#00FFC6]/20 bg-[#00FFC6]/10 px-4 py-3 text-sm font-semibold text-[#9DFFEB] transition hover:border-[#00FFC6]/35 hover:text-white"
+              className="rounded-2xl border border-[#1BC2D5]/20 bg-[#1BC2D5]/10 px-4 py-3 text-sm font-semibold text-[var(--text-primary)] transition hover:border-[#1BC2D5]/35 hover:text-[var(--text-primary)]"
             >
               Add User
             </button>
@@ -322,20 +328,25 @@ export function UsersPage() {
         description="Review account roles, current status, and last login details with create, edit, delete, block, and unblock actions."
       >
         {errorMessage ? (
-          <div className="mb-4 rounded-2xl border border-[#FF3B3B]/35 bg-[#FF3B3B]/10 px-4 py-3 text-sm text-[#FFB3B3]">
+          <div className="mb-4 rounded-2xl border border-[#FFFFFF]/35 bg-[#FFFFFF]/10 px-4 py-3 text-sm text-[var(--text-primary)]">
             {errorMessage}
           </div>
         ) : null}
 
         {actionMessage ? (
-          <div className="mb-4 rounded-2xl border border-[#00FFC6]/20 bg-[#00FFC6]/10 px-4 py-3 text-sm text-[#B8FFF0]">
+          <div className="mb-4 rounded-2xl border border-[#1BC2D5]/20 bg-[#1BC2D5]/10 px-4 py-3 text-sm text-[var(--text-primary)]">
             {actionMessage}
           </div>
         ) : null}
 
         {isLoading ? (
           <div className="rounded-[1.75rem] border border-[var(--border)] bg-[var(--background-muted)] p-5 text-sm text-[var(--text-secondary)]">
-            Loading users...
+            <div className="mb-3">Loading users...</div>
+            <div className="space-y-3">
+              {[0, 1, 2].map((item) => (
+                <SkeletonBlock key={item} className="h-20 rounded-[1.25rem]" />
+              ))}
+            </div>
           </div>
         ) : usersState.data.length === 0 ? (
           <div className="rounded-[1.75rem] border border-[var(--border)] bg-[var(--background-muted)] p-5 text-sm text-[var(--text-secondary)]">
@@ -351,9 +362,9 @@ export function UsersPage() {
               <span>Actions</span>
             </div>
 
-            <div className="divide-y divide-[var(--border)]">
+            <StaggeredList className="divide-y divide-[var(--border)]">
               {usersState.data.map((user) => (
-                <div
+                <AnimatedItem
                   key={user.id}
                   className="grid gap-4 px-4 py-5 sm:px-5 lg:grid-cols-[1fr_1fr_0.75fr_0.75fr_1.2fr] lg:items-center"
                 >
@@ -378,8 +389,8 @@ export function UsersPage() {
                     <span
                       className={`inline-flex rounded-full border px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.16em] ${
                         user.isActive
-                          ? "border-[#00FFC6]/20 bg-[#00FFC6]/10 text-[#9DFFEB]"
-                          : "border-[#FF3B3B]/25 bg-[#FF3B3B]/10 text-[#FFB3B3]"
+                          ? "border-[#1BC2D5]/20 bg-[#1BC2D5]/10 text-[var(--text-primary)]"
+                          : "border-[#FFFFFF]/25 bg-[#FFFFFF]/10 text-[var(--text-primary)]"
                       }`}
                     >
                       {user.isActive ? "Active" : "Blocked"}
@@ -399,22 +410,22 @@ export function UsersPage() {
                     <div className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-secondary)] lg:hidden">
                       Actions
                     </div>
-                    <button
+                    <AnimatedButton
                       type="button"
                       onClick={() => openEditModal(user)}
                       disabled={busyUserId === user.id}
-                      className="rounded-2xl border border-[#00FFC6]/20 bg-[#00FFC6]/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#9DFFEB] transition disabled:cursor-not-allowed disabled:opacity-60 sm:tracking-[0.16em]"
+                      className="rounded-2xl border border-[#1BC2D5]/20 bg-[#1BC2D5]/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--text-primary)] transition disabled:cursor-not-allowed disabled:opacity-60 sm:tracking-[0.16em]"
                     >
                       Edit
-                    </button>
-                    <button
+                    </AnimatedButton>
+                    <AnimatedButton
                       type="button"
                       onClick={() => handleStatusAction(user)}
                       disabled={busyUserId === user.id}
                       className={`rounded-2xl border px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] transition sm:tracking-[0.16em] ${
                         user.isActive
-                          ? "border-[#00FFC6]/20 bg-[#00FFC6]/10 text-[#9DFFEB]"
-                          : "border-[#FF3B3B]/25 bg-[#FF3B3B]/10 text-[#FFB3B3]"
+                          ? "border-[#1BC2D5]/20 bg-[#1BC2D5]/10 text-[var(--text-primary)]"
+                          : "border-[#FFFFFF]/25 bg-[#FFFFFF]/10 text-[var(--text-primary)]"
                       } disabled:cursor-not-allowed disabled:opacity-60`}
                     >
                       {busyUserId === user.id
@@ -422,19 +433,19 @@ export function UsersPage() {
                         : user.isActive
                           ? "Block"
                           : "Unblock"}
-                    </button>
-                    <button
+                    </AnimatedButton>
+                    <AnimatedButton
                       type="button"
                       onClick={() => handleDeleteUser(user)}
                       disabled={busyUserId === user.id}
-                      className="rounded-2xl border border-[#8B949E]/25 bg-[#8B949E]/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#C3CBD3] transition disabled:cursor-not-allowed disabled:opacity-60 sm:tracking-[0.16em]"
+                      className="rounded-2xl border border-[#145052]/25 bg-[#145052]/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--text-primary)] transition disabled:cursor-not-allowed disabled:opacity-60 sm:tracking-[0.16em]"
                     >
                       Delete
-                    </button>
+                    </AnimatedButton>
                   </div>
-                </div>
+                </AnimatedItem>
               ))}
-            </div>
+            </StaggeredList>
           </div>
         )}
 

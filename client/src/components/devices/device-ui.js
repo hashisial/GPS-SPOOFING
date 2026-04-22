@@ -20,14 +20,14 @@ export function formatDeviceTypeLabel(type) {
 export function getDeviceStatusBadgeClass(status) {
   switch (status) {
     case "ONLINE":
-      return "border-[#00FFC6]/20 bg-[#00FFC6]/10 text-[#9DFFEB]";
+      return "border-[#1BC2D5]/20 bg-[#1BC2D5]/10 text-[var(--text-primary)]";
     case "OFFLINE":
-      return "border-[#8B949E]/25 bg-[#8B949E]/10 text-[#C3CBD3]";
+      return "border-[#145052]/25 bg-[#145052]/10 text-[var(--text-primary)]";
     case "MAINTENANCE":
-      return "border-[#8B949E]/25 bg-[#8B949E]/10 text-[#C3CBD3]";
+      return "border-[#145052]/25 bg-[#145052]/10 text-[var(--text-primary)]";
     case "DISABLED":
-      return "border-[#FF3B3B]/25 bg-[#FF3B3B]/10 text-[#FFB3B3]";
+      return "border-[#FFFFFF]/25 bg-[#FFFFFF]/10 text-[var(--text-primary)]";
     default:
-      return "border-slate-500/20 bg-slate-500/10 text-slate-300";
+      return "border-[#145052]/25 bg-[#145052]/10 text-[var(--text-primary)]";
   }
 }

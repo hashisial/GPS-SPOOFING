@@ -8,6 +8,12 @@ import { ThreatTrendChart } from "../../components/dashboard/ThreatTrendChart.js
 import { LatestAlertsCard } from "../../components/dashboard/LatestAlertsCard.jsx";
 import { SystemHealthCard } from "../../components/dashboard/SystemHealthCard.jsx";
 import { PanelCard } from "../../components/dashboard/PanelCard.jsx";
+import {
+  AnimatedItem,
+  AnimatedPage,
+  SkeletonBlock,
+  StaggeredSection
+} from "../../components/animations/MotionPrimitives.jsx";
 import { dashboardService } from "../../services/dashboard/dashboard.service.js";
 
 const emptyOverview = {
@@ -21,10 +27,10 @@ const emptyOverview = {
   },
   metrics: [],
   riskDistribution: [
-    { label: "Low", value: 100, color: "#00FFC6" },
-    { label: "Medium", value: 0, color: "#8B949E" },
-    { label: "High", value: 0, color: "#FF7A7A" },
-    { label: "Critical", value: 0, color: "#FF3B3B" }
+    { label: "Low", value: 100, color: "#1BC2D5" },
+    { label: "Medium", value: 0, color: "#145052" },
+    { label: "High", value: 0, color: "#1BC2D5" },
+    { label: "Critical", value: 0, color: "#FFFFFF" }
   ],
   threatTrend: [
     { label: "00:00", value: 0 },
@@ -119,27 +125,27 @@ export function DashboardPage() {
   }, [socket]);
 
   return (
-    <div className="space-y-6">
+    <AnimatedPage className="space-y-6">
       <PageIntro
         eyebrow="Operations"
         title={`Dashboard${user?.name ? `, ${user.name}` : ""}`}
         description="Top-level monitoring workspace for fleet health, spoofing activity, live alerts, and weighted system risk."
       />
 
-      <div className="flex justify-end">
+      <AnimatedItem className="flex justify-end">
         <div
-          className={`rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] ${
+          className={`status-pill rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] ${
             isConnected
-              ? "border-[#00FFC6]/20 bg-[#00FFC6]/10 text-[#9DFFEB]"
-              : "border-[#8B949E]/25 bg-[#8B949E]/10 text-[#C3CBD3]"
+              ? "border-[#1BC2D5]/20 bg-[#1BC2D5]/10 text-[var(--text-primary)]"
+              : "border-[#145052]/25 bg-[#145052]/10 text-[var(--text-primary)]"
           }`}
         >
           {isConnected ? "Realtime Connected" : "Realtime Reconnecting"}
         </div>
-      </div>
+      </AnimatedItem>
 
-      <section className="dashboard-hero-grid grid gap-4 xl:grid-cols-[1.3fr_0.7fr]">
-        <div className="dashboard-panel rounded-[2rem] p-6">
+      <StaggeredSection className="dashboard-hero-grid grid gap-4 xl:grid-cols-[1.3fr_0.7fr]">
+        <AnimatedItem className="dashboard-panel rounded-[2rem] p-6">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--accent)]">
@@ -152,18 +158,18 @@ export function DashboardPage() {
                 Device uptime is stable, but spoofing indicators climbed during the current operational window. Critical incidents need accelerated triage.
               </p>
             </div>
-            <div className="rounded-[1.5rem] border border-[#00FFC6]/20 bg-[#00FFC6]/10 px-4 py-3 text-right">
-              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-[#9DFFEB]">
+            <div className="rounded-[1.5rem] border border-[#1BC2D5]/20 bg-[#1BC2D5]/10 px-4 py-3 text-right">
+              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--text-primary)]">
                 Shift Posture
               </div>
-              <div className="mt-1 text-3xl font-semibold text-white">
+              <div className="mt-1 text-3xl font-semibold text-[var(--text-primary)]">
                 {overview.summary.overallRiskScore}/100
               </div>
             </div>
           </div>
-        </div>
+        </AnimatedItem>
 
-        <div className="dashboard-panel rounded-[2rem] p-6">
+        <AnimatedItem className="dashboard-panel rounded-[2rem] p-6">
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--text-secondary)]">
             System Snapshot
           </p>
@@ -187,31 +193,40 @@ export function DashboardPage() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </AnimatedItem>
+      </StaggeredSection>
 
       {errorMessage ? (
-        <div className="rounded-[1.75rem] border border-[#FF3B3B]/35 bg-[#FF3B3B]/10 px-5 py-4 text-sm text-[#FFB3B3]">
+        <div className="rounded-[1.75rem] border border-[#FFFFFF]/35 bg-[#FFFFFF]/10 px-5 py-4 text-sm text-[var(--text-primary)]">
           {errorMessage}
         </div>
       ) : null}
 
       {isLoading ? (
-        <div className="rounded-[1.75rem] border border-[var(--border)] bg-[var(--background-muted)] px-5 py-10 text-sm text-[var(--text-secondary)]">
-          Loading dashboard telemetry...
+        <div className="rounded-[1.75rem] border border-[var(--border)] bg-[var(--background-muted)] p-5">
+          <div className="mb-4 text-sm text-[var(--text-secondary)]">
+            Loading dashboard telemetry...
+          </div>
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {[0, 1, 2, 3].map((item) => (
+              <SkeletonBlock key={item} className="h-32 rounded-[1.5rem]" />
+            ))}
+          </div>
         </div>
       ) : null}
 
       {!isLoading ? (
         <>
-          <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <StaggeredSection className="grid gap-4 md:grid-cols-2 xl:grid-cols-4" viewport>
             {overview.metrics.map((metric) => (
-              <DashboardMetricCard key={metric.title} {...metric} />
+              <AnimatedItem key={metric.title}>
+                <DashboardMetricCard {...metric} />
+              </AnimatedItem>
             ))}
-          </section>
+          </StaggeredSection>
 
-          <section className="grid gap-4 xl:grid-cols-[1.25fr_0.75fr]">
-            <div className="space-y-4">
+          <StaggeredSection className="grid gap-4 xl:grid-cols-[1.25fr_0.75fr]" viewport>
+            <AnimatedItem className="space-y-4">
               <RiskOverviewCard
                 score={overview.summary.overallRiskScore}
                 delta={overview.summary.riskDelta}
@@ -224,24 +239,29 @@ export function DashboardPage() {
               >
                 <ThreatTrendChart points={overview.threatTrend} />
               </PanelCard>
-            </div>
+            </AnimatedItem>
 
-            <LatestAlertsCard alerts={overview.latestAlerts} />
-          </section>
+            <AnimatedItem>
+              <LatestAlertsCard alerts={overview.latestAlerts} />
+            </AnimatedItem>
+          </StaggeredSection>
 
-          <section className="grid gap-4 xl:grid-cols-[0.95fr_1.05fr]">
-            <SystemHealthCard
-              items={overview.systemHealth}
-              checklist={overview.responseChecklist}
-            />
+          <StaggeredSection className="grid gap-4 xl:grid-cols-[0.95fr_1.05fr]" viewport>
+            <AnimatedItem>
+              <SystemHealthCard
+                items={overview.systemHealth}
+                checklist={overview.responseChecklist}
+              />
+            </AnimatedItem>
 
-            <PanelCard
-              eyebrow="Health Matrix"
-              title="System health and posture summary"
-              description="Operational summary of platform resilience and current response focus."
-              className="h-full"
-            >
-              <div className="grid gap-4 sm:grid-cols-2">
+            <AnimatedItem>
+              <PanelCard
+                eyebrow="Health Matrix"
+                title="System health and posture summary"
+                description="Operational summary of platform resilience and current response focus."
+                className="h-full"
+              >
+                <div className="grid gap-4 sm:grid-cols-2">
                 <div className="rounded-[1.5rem] border border-[var(--border)] bg-[var(--background-muted)] p-5">
                   <div className="text-xs uppercase tracking-[0.18em] text-[var(--text-secondary)]">
                     Alert Containment
@@ -276,19 +296,20 @@ export function DashboardPage() {
                         Critical spoofing incidents around secure perimeter corridors
                       </div>
                     </div>
-                    <div className="rounded-full border border-[#FF3B3B]/25 bg-[#FF3B3B]/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#FFB3B3]">
+                    <div className="rounded-full border border-[#FFFFFF]/25 bg-[#FFFFFF]/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-primary)]">
                       Analyst Action Recommended
                     </div>
                   </div>
                   <div className="mt-4 h-2 overflow-hidden rounded-full bg-black/20">
-                    <div className="h-full w-[72%] rounded-full bg-[linear-gradient(90deg,#00FFC6,#FF3B3B)]" />
+                    <div className="h-full w-[72%] rounded-full bg-[linear-gradient(90deg,#1BC2D5,#FFFFFF)]" />
                   </div>
                 </div>
-              </div>
-            </PanelCard>
-          </section>
+                </div>
+              </PanelCard>
+            </AnimatedItem>
+          </StaggeredSection>
         </>
       ) : null}
-    </div>
+    </AnimatedPage>
   );
 }

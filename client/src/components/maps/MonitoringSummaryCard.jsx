@@ -1,17 +1,27 @@
+import { motion, useReducedMotion } from "framer-motion";
+import { AnimatedCounter } from "../animations/MotionPrimitives.jsx";
+
 export function MonitoringSummaryCard({ label, value, detail, tone = "info" }) {
+  const shouldReduceMotion = useReducedMotion();
   const toneClassMap = {
-    info: "border-[#00FFC6]/20 bg-[#00FFC6]/10 text-[#9DFFEB]",
-    success: "border-[#00FFC6]/20 bg-[#00FFC6]/10 text-[#B8FFF0]",
-    warning: "border-[#8B949E]/20 bg-[#8B949E]/10 text-[#C3CBD3]"
+    info: "border-[#1BC2D5]/20 bg-[#1BC2D5]/10 text-[var(--text-primary)]",
+    success: "border-[#1BC2D5]/20 bg-[#1BC2D5]/10 text-[var(--text-primary)]",
+    warning: "border-[#145052]/20 bg-[#145052]/10 text-[var(--text-primary)]"
   };
 
   return (
-    <article className="dashboard-panel rounded-[1.6rem] p-5">
+    <motion.article
+      whileHover={shouldReduceMotion ? undefined : { y: -4, scale: 1.015 }}
+      transition={{ duration: 0.24, ease: "easeOut" }}
+      className="dashboard-panel interactive-card rounded-[1.6rem] p-5"
+    >
       <div className={`inline-flex rounded-full border px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.18em] ${toneClassMap[tone] ?? toneClassMap.info}`}>
         {label}
       </div>
-      <div className="mt-4 text-3xl font-semibold text-[var(--text-primary)]">{value}</div>
+      <div className="mt-4 text-3xl font-semibold text-[var(--text-primary)]">
+        <AnimatedCounter value={value} />
+      </div>
       <div className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">{detail}</div>
-    </article>
+    </motion.article>
   );
 }

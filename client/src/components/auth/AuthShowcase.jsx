@@ -23,10 +23,10 @@ export function AuthShowcase() {
       </div>
 
       <div className="relative">
-        <p className="text-xs font-semibold uppercase tracking-[0.34em] text-[#00FFC6]">
+        <p className="text-xs font-semibold uppercase tracking-[0.34em] text-[#1BC2D5]">
           GPS Security Console
         </p>
-        <h1 className="mt-5 max-w-md text-4xl font-semibold leading-tight text-white sm:text-5xl">
+        <h1 className="mt-5 max-w-md text-4xl font-semibold leading-tight text-[var(--text-primary)] sm:text-5xl">
           Secure access for spoofing detection operators
         </h1>
         <p className="mt-5 max-w-xl text-sm leading-7 text-[var(--text-secondary)] sm:text-base">
@@ -52,9 +52,9 @@ export function AuthShowcase() {
           {threatHighlights.map((item) => (
             <div
               key={item.title}
-              className="rounded-2xl border border-[#00FFC6]/14 bg-[#00FFC6]/5 px-4 py-4 backdrop-blur"
+              className="rounded-2xl border border-[#1BC2D5]/14 bg-[#1BC2D5]/5 px-4 py-4 backdrop-blur"
             >
-              <h2 className="text-sm font-semibold text-white">{item.title}</h2>
+              <h2 className="text-sm font-semibold text-[var(--text-primary)]">{item.title}</h2>
               <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">{item.description}</p>
             </div>
           ))}

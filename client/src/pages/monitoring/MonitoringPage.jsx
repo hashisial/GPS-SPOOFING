@@ -4,6 +4,13 @@ import { PanelCard } from "../../components/dashboard/PanelCard.jsx";
 import { LiveMonitoringMap } from "../../components/maps/LiveMonitoringMap.jsx";
 import { MonitoringSummaryCard } from "../../components/maps/MonitoringSummaryCard.jsx";
 import { DeviceTelemetryList } from "../../components/maps/DeviceTelemetryList.jsx";
+import {
+  AnimatedButton,
+  AnimatedItem,
+  AnimatedPage,
+  SkeletonBlock,
+  StaggeredSection
+} from "../../components/animations/MotionPrimitives.jsx";
 import { gpsService } from "../../services/gps/gps.service.js";
 import { useSocket } from "../../hooks/useSocket.js";
 
@@ -117,50 +124,57 @@ export function MonitoringPage() {
   );
 
   return (
-    <div className="space-y-6">
+    <AnimatedPage className="space-y-6">
       <PageIntro
         eyebrow="Live Operations"
         title="Live Monitoring"
         description="Track device movement in real time with position markers, route trails, popup telemetry, and online/offline fleet status."
       />
 
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        <MonitoringSummaryCard
-          label="Total Devices"
-          value={liveState.summary.totalDevices}
-          detail="Devices included in the current live monitoring scope."
-          tone="info"
-        />
-        <MonitoringSummaryCard
-          label="Online Devices"
-          value={liveState.summary.onlineDevices}
-          detail="Devices still reporting within the live telemetry window."
-          tone="success"
-        />
-        <MonitoringSummaryCard
-          label="Offline Devices"
-          value={liveState.summary.offlineDevices}
-          detail="Assets not seen recently or outside the online threshold."
-          tone="warning"
-        />
-        <MonitoringSummaryCard
-          label="Map Markers"
-          value={liveState.summary.activeMarkers}
-          detail="Devices with a current position available for display."
-          tone="info"
-        />
-      </section>
+      <StaggeredSection className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        {[
+          {
+            label: "Total Devices",
+            value: liveState.summary.totalDevices,
+            detail: "Devices included in the current live monitoring scope.",
+            tone: "info"
+          },
+          {
+            label: "Online Devices",
+            value: liveState.summary.onlineDevices,
+            detail: "Devices still reporting within the live telemetry window.",
+            tone: "success"
+          },
+          {
+            label: "Offline Devices",
+            value: liveState.summary.offlineDevices,
+            detail: "Assets not seen recently or outside the online threshold.",
+            tone: "warning"
+          },
+          {
+            label: "Map Markers",
+            value: liveState.summary.activeMarkers,
+            detail: "Devices with a current position available for display.",
+            tone: "info"
+          }
+        ].map((item) => (
+          <AnimatedItem key={item.label}>
+            <MonitoringSummaryCard {...item} />
+          </AnimatedItem>
+        ))}
+      </StaggeredSection>
 
-      <section className="grid gap-4 xl:grid-cols-[1.25fr_0.75fr]">
-        <PanelCard
-          eyebrow="Geo Tracking"
-          title="Live device positions and movement trails"
-          description="The map refreshes on an interval and renders the latest route trail available for each monitored device."
-        >
+      <StaggeredSection className="grid gap-4 xl:grid-cols-[1.25fr_0.75fr]" viewport>
+        <AnimatedItem>
+          <PanelCard
+            eyebrow="Geo Tracking"
+            title="Live device positions and movement trails"
+            description="The map refreshes on an interval and renders the latest route trail available for each monitored device."
+          >
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
             <div className="flex flex-wrap gap-2">
               {["ALL", "ONLINE", "OFFLINE"].map((option) => (
-                <button
+                <AnimatedButton
                   key={option}
                   type="button"
                   onClick={() => setStatusFilter(option)}
@@ -171,32 +185,32 @@ export function MonitoringPage() {
                   }`}
                 >
                   {option}
-                </button>
+                </AnimatedButton>
               ))}
             </div>
             <div className="flex flex-wrap items-center gap-4 text-xs uppercase tracking-[0.16em] text-[var(--text-secondary)]">
               <span
                 className={`rounded-full border px-3 py-1 ${
                   isConnected
-                    ? "border-[#00FFC6]/20 bg-[#00FFC6]/10 text-[#9DFFEB]"
-                    : "border-[#8B949E]/25 bg-[#8B949E]/10 text-[#C3CBD3]"
+                    ? "border-[#1BC2D5]/20 bg-[#1BC2D5]/10 text-[var(--text-primary)]"
+                    : "border-[#145052]/25 bg-[#145052]/10 text-[var(--text-primary)]"
                 }`}
               >
                 {isConnected ? "Realtime Connected" : "Realtime Reconnecting"}
               </span>
               <span className="flex items-center gap-2">
-                <span className="h-2.5 w-2.5 rounded-full bg-[#00FFC6]" />
+                <span className="h-2.5 w-2.5 rounded-full bg-[#1BC2D5]" />
                 Online
               </span>
               <span className="flex items-center gap-2">
-                <span className="h-2.5 w-2.5 rounded-full bg-[#8B949E]" />
+                <span className="h-2.5 w-2.5 rounded-full bg-[#145052]" />
                 Offline
               </span>
             </div>
           </div>
 
           {errorMessage ? (
-            <div className="mb-4 rounded-2xl border border-[#FF3B3B]/35 bg-[#FF3B3B]/10 px-4 py-3 text-sm text-[#FFB3B3]">
+            <div className="mb-4 rounded-2xl border border-[#FFFFFF]/35 bg-[#FFFFFF]/10 px-4 py-3 text-sm text-[var(--text-primary)]">
               {errorMessage}
             </div>
           ) : null}
@@ -205,9 +219,10 @@ export function MonitoringPage() {
             devices={liveState.devices}
             selectedDeviceId={selectedDeviceId}
           />
-        </PanelCard>
+          </PanelCard>
+        </AnimatedItem>
 
-        <div className="space-y-4">
+        <AnimatedItem className="space-y-4">
           <PanelCard
             eyebrow="Selected Device"
             title={selectedDevice?.deviceName ?? "No device selected"}
@@ -272,14 +287,22 @@ export function MonitoringPage() {
                 : "Select a device to focus its route trail and status details. Live updates are applied through Socket.io."
             }
           >
-            <DeviceTelemetryList
-              devices={liveState.devices}
-              selectedDeviceId={selectedDeviceId}
-              onSelectDevice={setSelectedDeviceId}
-            />
+            {isLoading && liveState.devices.length === 0 ? (
+              <div className="space-y-3">
+                {[0, 1, 2].map((item) => (
+                  <SkeletonBlock key={item} className="h-28 rounded-[1.5rem]" />
+                ))}
+              </div>
+            ) : (
+              <DeviceTelemetryList
+                devices={liveState.devices}
+                selectedDeviceId={selectedDeviceId}
+                onSelectDevice={setSelectedDeviceId}
+              />
+            )}
           </PanelCard>
-        </div>
-      </section>
-    </div>
+        </AnimatedItem>
+      </StaggeredSection>
+    </AnimatedPage>
   );
 }

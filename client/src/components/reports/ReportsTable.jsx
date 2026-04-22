@@ -1,3 +1,9 @@
+import {
+  AnimatedButton,
+  AnimatedItem,
+  SkeletonBlock,
+  StaggeredList
+} from "../animations/MotionPrimitives.jsx";
 import { ReportExportActions } from "./ReportExportActions.jsx";
 import {
   formatReportDate,
@@ -16,7 +22,12 @@ export function ReportsTable({
   if (isLoading) {
     return (
       <div className="rounded-[1.75rem] border border-[var(--border)] bg-[var(--background-muted)] p-5 text-sm text-[var(--text-secondary)]">
-        Loading reports...
+        <div className="mb-3">Loading reports...</div>
+        <div className="space-y-3">
+          {[0, 1, 2].map((item) => (
+            <SkeletonBlock key={item} className="h-20 rounded-[1.25rem]" />
+          ))}
+        </div>
       </div>
     );
   }
@@ -39,12 +50,12 @@ export function ReportsTable({
         <span>Actions</span>
       </div>
 
-      <div className="divide-y divide-[var(--border)]">
+      <StaggeredList className="divide-y divide-[var(--border)]">
         {reports.map((report) => {
           const isSelected = selectedReportId === report.id;
 
           return (
-            <div
+            <AnimatedItem
               key={report.id}
               className={`grid gap-4 px-4 py-5 transition sm:px-5 lg:grid-cols-[1.2fr_0.7fr_0.9fr_0.85fr_1.2fr] lg:items-center ${
                 isSelected ? "bg-[var(--accent-soft)]/60" : "hover:bg-white/[0.02]"
@@ -88,7 +99,7 @@ export function ReportsTable({
                 <div className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-secondary)] lg:hidden">
                   Actions
                 </div>
-                <button
+                <AnimatedButton
                   type="button"
                   onClick={() => onSelect(report.id)}
                   className={`rounded-2xl border px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] transition sm:tracking-[0.16em] ${
@@ -98,7 +109,7 @@ export function ReportsTable({
                   }`}
                 >
                   {isSelected ? "Selected" : "Open"}
-                </button>
+                </AnimatedButton>
 
                 <ReportExportActions
                   report={report}
@@ -107,10 +118,10 @@ export function ReportsTable({
                   compact
                 />
               </div>
-            </div>
+            </AnimatedItem>
           );
         })}
-      </div>
+      </StaggeredList>
     </div>
   );
 }

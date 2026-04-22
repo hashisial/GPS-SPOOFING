@@ -12,30 +12,30 @@ export function formatAlertDate(value) {
 export function getSeverityBadgeClass(severity) {
   switch (severity) {
     case "Low":
-      return "border-[#8B949E]/30 bg-[#8B949E]/10 text-[#C3CBD3]";
+      return "border-[#145052]/30 bg-[#145052]/10 text-[var(--text-primary)]";
     case "Medium":
-      return "border-[#00FFC6]/20 bg-[#00FFC6]/10 text-[#9DFFEB]";
+      return "border-[#1BC2D5]/20 bg-[#1BC2D5]/10 text-[var(--text-primary)]";
     case "High":
-      return "border-[#FF7A7A]/25 bg-[#FF7A7A]/10 text-[#FFB3B3]";
+      return "border-[#1BC2D5]/25 bg-[#1BC2D5]/10 text-[var(--text-primary)]";
     case "Critical":
-      return "border-[#FF3B3B]/35 bg-[#FF3B3B]/14 text-[#FFD1D1]";
+      return "border-[#FFFFFF]/35 bg-[#FFFFFF]/14 text-[var(--text-primary)]";
     default:
-      return "border-slate-500/20 bg-slate-500/10 text-slate-300";
+      return "border-[#145052]/25 bg-[#145052]/10 text-[var(--text-primary)]";
   }
 }
 
 export function getStatusBadgeClass(status) {
   switch (status) {
     case "OPEN":
-      return "border-[#FF3B3B]/30 bg-[#FF3B3B]/10 text-[#FFB3B3]";
+      return "border-[#FFFFFF]/30 bg-[#FFFFFF]/10 text-[var(--text-primary)]";
     case "ACKNOWLEDGED":
-      return "border-[#8B949E]/25 bg-[#8B949E]/10 text-[#C3CBD3]";
+      return "border-[#145052]/25 bg-[#145052]/10 text-[var(--text-primary)]";
     case "RESOLVED":
-      return "border-[#00FFC6]/20 bg-[#00FFC6]/10 text-[#9DFFEB]";
+      return "border-[#1BC2D5]/20 bg-[#1BC2D5]/10 text-[var(--text-primary)]";
     case "FALSE_POSITIVE":
-      return "border-[#8B949E]/25 bg-[#8B949E]/10 text-[#C3CBD3]";
+      return "border-[#145052]/25 bg-[#145052]/10 text-[var(--text-primary)]";
     default:
-      return "border-slate-500/20 bg-slate-500/10 text-slate-300";
+      return "border-[#145052]/25 bg-[#145052]/10 text-[var(--text-primary)]";
   }
 }
 

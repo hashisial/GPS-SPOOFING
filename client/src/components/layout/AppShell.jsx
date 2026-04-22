@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { SidebarNav } from "./SidebarNav.jsx";
+import { SignalBackdrop } from "./SignalBackdrop.jsx";
 import { Topbar } from "./Topbar.jsx";
 
 export function AppShell({ children }) {
@@ -28,8 +29,10 @@ export function AppShell({ children }) {
   }, [isMobileNavOpen]);
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[var(--background)] text-[var(--text-primary)]">
-      <div className="grid min-h-screen min-w-0 lg:grid-cols-[280px_minmax(0,1fr)]">
+    <div className="relative min-h-screen overflow-x-hidden bg-[var(--background)] text-[var(--text-primary)]">
+      <SignalBackdrop />
+
+      <div className="relative z-10 min-h-screen min-w-0 lg:pl-[280px]">
         <SidebarNav
           isMobileOpen={isMobileNavOpen}
           onMobileClose={() => setIsMobileNavOpen(false)}

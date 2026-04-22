@@ -1,4 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
+import {
+  AnimatedButton,
+  AnimatedInput,
+  AnimatedItem,
+  MotionModal
+} from "../animations/MotionPrimitives.jsx";
 import { DEVICE_STATUSES, DEVICE_TYPES } from "./device-ui.js";
 
 const inputClassName =
@@ -74,8 +80,7 @@ export function DeviceFormModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-slate-950/75 px-3 py-4 backdrop-blur sm:items-center sm:px-4 sm:py-6">
-      <div className="w-full max-w-2xl overflow-hidden rounded-[1.5rem] border border-[var(--border)] bg-[var(--background-elevated)] shadow-2xl sm:rounded-[2rem]">
+    <MotionModal className="w-full max-w-2xl overflow-hidden rounded-[1.5rem] border border-[var(--border)] bg-[var(--background-elevated)] shadow-2xl sm:rounded-[2rem]">
         <div className="flex items-start justify-between gap-3 border-b border-[var(--border)] px-4 py-4 sm:px-6 sm:py-5">
           <div className="min-w-0">
             <p className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--accent)] sm:text-xs sm:tracking-[0.24em]">
@@ -83,20 +88,20 @@ export function DeviceFormModal({
             </p>
             <h2 className="mt-2 text-xl font-semibold leading-tight text-[var(--text-primary)] sm:text-2xl">{title}</h2>
           </div>
-          <button
+          <AnimatedButton
             type="button"
             onClick={onClose}
             className="rounded-full border border-[var(--border)] px-4 py-2 text-sm text-[var(--text-secondary)] transition hover:border-[var(--accent)] hover:text-[var(--text-primary)]"
           >
             Close
-          </button>
+          </AnimatedButton>
         </div>
 
         <form className="max-h-[calc(100vh-9rem)] space-y-5 overflow-y-auto px-4 py-5 sm:max-h-none sm:px-6 sm:py-6" onSubmit={handleSubmit}>
           <div className="grid gap-4 md:grid-cols-2">
             <div>
               <label className="text-sm font-medium text-[var(--text-primary)]">Device Name</label>
-              <input
+              <AnimatedInput
                 name="deviceName"
                 value={form.deviceName}
                 onChange={handleChange}
@@ -106,7 +111,7 @@ export function DeviceFormModal({
             </div>
             <div>
               <label className="text-sm font-medium text-[var(--text-primary)]">Device ID</label>
-              <input
+              <AnimatedInput
                 name="deviceId"
                 value={form.deviceId}
                 onChange={handleChange}
@@ -116,7 +121,8 @@ export function DeviceFormModal({
             </div>
             <div>
               <label className="text-sm font-medium text-[var(--text-primary)]">Type</label>
-              <select
+              <AnimatedInput
+                as="select"
                 name="type"
                 value={form.type}
                 onChange={handleChange}
@@ -127,11 +133,12 @@ export function DeviceFormModal({
                     {type}
                   </option>
                 ))}
-              </select>
+              </AnimatedInput>
             </div>
             <div>
               <label className="text-sm font-medium text-[var(--text-primary)]">Status</label>
-              <select
+              <AnimatedInput
+                as="select"
                 name="status"
                 value={form.status}
                 onChange={handleChange}
@@ -142,11 +149,12 @@ export function DeviceFormModal({
                     {status}
                   </option>
                 ))}
-              </select>
+              </AnimatedInput>
             </div>
             <div className="md:col-span-2">
               <label className="text-sm font-medium text-[var(--text-primary)]">Owner</label>
-              <select
+              <AnimatedInput
+                as="select"
                 name="owner"
                 value={form.owner}
                 onChange={handleChange}
@@ -159,7 +167,7 @@ export function DeviceFormModal({
                     {user.name} - {user.email}
                   </option>
                 ))}
-              </select>
+              </AnimatedInput>
               <p className="mt-2 text-xs text-[var(--text-secondary)]">
                 {isLoadingOwners
                   ? "Loading available owners from the user directory..."
@@ -168,7 +176,8 @@ export function DeviceFormModal({
             </div>
             <div className="md:col-span-2">
               <label className="text-sm font-medium text-[var(--text-primary)]">Notes</label>
-              <textarea
+              <AnimatedInput
+                as="textarea"
                 name="notes"
                 value={form.notes}
                 onChange={handleChange}
@@ -179,29 +188,28 @@ export function DeviceFormModal({
           </div>
 
           {errorMessage ? (
-            <div className="rounded-2xl border border-[#FF3B3B]/35 bg-[#FF3B3B]/10 px-4 py-3 text-sm text-[#FFB3B3]">
+            <AnimatedItem className="rounded-2xl border border-[#FFFFFF]/35 bg-[#FFFFFF]/10 px-4 py-3 text-sm text-[var(--text-primary)]">
               {errorMessage}
-            </div>
+            </AnimatedItem>
           ) : null}
 
           <div className="flex flex-col-reverse gap-3 sm:flex-row sm:flex-wrap sm:justify-end">
-            <button
+            <AnimatedButton
               type="button"
               onClick={onClose}
               className="rounded-2xl border border-[var(--border)] px-4 py-3 text-sm font-semibold text-[var(--text-secondary)] transition hover:border-[var(--accent)] hover:text-[var(--text-primary)]"
             >
               Cancel
-            </button>
-            <button
+            </AnimatedButton>
+            <AnimatedButton
               type="submit"
               disabled={isSubmitting}
-              className="rounded-2xl bg-[linear-gradient(135deg,#00FFC6,#74FBE0)] px-5 py-3 text-sm font-semibold text-[#041018] disabled:cursor-not-allowed disabled:opacity-60"
+              className="rounded-2xl bg-[linear-gradient(135deg,#1BC2D5,#FFFFFF)] px-5 py-3 text-sm font-semibold text-[#000000] disabled:cursor-not-allowed disabled:opacity-60"
             >
               {isSubmitting ? "Saving..." : mode === "edit" ? "Save Changes" : "Create Device"}
-            </button>
+            </AnimatedButton>
           </div>
         </form>
-      </div>
-    </div>
+    </MotionModal>
   );
 }

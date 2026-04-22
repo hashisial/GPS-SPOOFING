@@ -310,7 +310,7 @@ export function ReportsPage() {
           description="Open any saved report to review its numeric highlights and visual severity and status breakdowns."
         >
           {detailError ? (
-            <div className="mb-4 rounded-2xl border border-[#FF3B3B]/35 bg-[#FF3B3B]/10 px-4 py-3 text-sm text-[#FFB3B3]">
+            <div className="mb-4 rounded-2xl border border-[#FFFFFF]/35 bg-[#FFFFFF]/10 px-4 py-3 text-sm text-[var(--text-primary)]">
               {detailError}
             </div>
           ) : null}
@@ -338,7 +338,7 @@ export function ReportsPage() {
         description="Browse recent reports and download PDF, CSV, or Excel exports directly from the table."
       >
         {listError ? (
-          <div className="mb-4 rounded-2xl border border-[#FF3B3B]/35 bg-[#FF3B3B]/10 px-4 py-3 text-sm text-[#FFB3B3]">
+          <div className="mb-4 rounded-2xl border border-[#FFFFFF]/35 bg-[#FFFFFF]/10 px-4 py-3 text-sm text-[var(--text-primary)]">
             {listError}
           </div>
         ) : null}

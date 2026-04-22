@@ -267,8 +267,8 @@ export function AlertsPage() {
         <div
           className={`rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] ${
             isConnected
-              ? "border-[#00FFC6]/20 bg-[#00FFC6]/10 text-[#9DFFEB]"
-              : "border-[#8B949E]/25 bg-[#8B949E]/10 text-[#C3CBD3]"
+              ? "border-[#1BC2D5]/20 bg-[#1BC2D5]/10 text-[var(--text-primary)]"
+              : "border-[#145052]/25 bg-[#145052]/10 text-[var(--text-primary)]"
           }`}
         >
           {isConnected ? "Realtime Connected" : "Realtime Reconnecting"}
@@ -345,13 +345,13 @@ export function AlertsPage() {
         description="Review current alerts, open the details modal, and take workflow actions according to your role."
       >
         {pageError ? (
-          <div className="mb-4 rounded-2xl border border-[#FF3B3B]/35 bg-[#FF3B3B]/10 px-4 py-3 text-sm text-[#FFB3B3]">
+          <div className="mb-4 rounded-2xl border border-[#FFFFFF]/35 bg-[#FFFFFF]/10 px-4 py-3 text-sm text-[var(--text-primary)]">
             {pageError}
           </div>
         ) : null}
 
         {realtimeMessage ? (
-          <div className="mb-4 rounded-2xl border border-[#00FFC6]/20 bg-[#00FFC6]/10 px-4 py-3 text-sm text-[#B8FFF0]">
+          <div className="mb-4 rounded-2xl border border-[#1BC2D5]/20 bg-[#1BC2D5]/10 px-4 py-3 text-sm text-[var(--text-primary)]">
             {realtimeMessage}
           </div>
         ) : null}

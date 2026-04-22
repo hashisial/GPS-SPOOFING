@@ -150,8 +150,8 @@ export function LoginPage() {
   return (
     <div className="relative overflow-hidden">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-[-8rem] top-[-10rem] h-72 w-72 rounded-full bg-[#00FFC6]/12 blur-3xl" />
-        <div className="absolute bottom-[-12rem] right-[-6rem] h-80 w-80 rounded-full bg-[#FF3B3B]/8 blur-3xl" />
+        <div className="absolute left-[-8rem] top-[-10rem] h-72 w-72 rounded-full bg-[#1BC2D5]/12 blur-3xl" />
+        <div className="absolute bottom-[-12rem] right-[-6rem] h-80 w-80 rounded-full bg-[#FFFFFF]/8 blur-3xl" />
       </div>
 
       <div className="relative mx-auto grid max-w-7xl gap-6 lg:grid-cols-[1.1fr_0.9fr]">

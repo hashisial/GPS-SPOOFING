@@ -1,3 +1,9 @@
+import {
+  AnimatedButton,
+  AnimatedItem,
+  SkeletonBlock,
+  StaggeredList
+} from "../animations/MotionPrimitives.jsx";
 import { DeviceStatusBadge } from "./DeviceStatusBadge.jsx";
 import { formatDeviceDate, formatDeviceTypeLabel } from "./device-ui.js";
 
@@ -11,7 +17,12 @@ export function DevicesTable({
   if (isLoading) {
     return (
       <div className="rounded-[1.75rem] border border-[var(--border)] bg-[var(--background-muted)] p-5 text-sm text-[var(--text-secondary)]">
-        Loading devices...
+        <div className="mb-3">Loading devices...</div>
+        <div className="space-y-3">
+          {[0, 1, 2].map((item) => (
+            <SkeletonBlock key={item} className="h-20 rounded-[1.25rem]" />
+          ))}
+        </div>
       </div>
     );
   }
@@ -35,9 +46,9 @@ export function DevicesTable({
         <span>Actions</span>
       </div>
 
-      <div className="divide-y divide-[var(--border)]">
+      <StaggeredList className="divide-y divide-[var(--border)]">
         {devices.map((device) => (
-          <div
+          <AnimatedItem
             key={device.id}
             className="grid gap-4 px-4 py-5 transition hover:bg-white/[0.02] sm:px-5 lg:grid-cols-[1fr_0.9fr_0.85fr_0.95fr_0.95fr_0.9fr] lg:items-center"
           >
@@ -93,20 +104,20 @@ export function DevicesTable({
               </div>
               {canManageDevices ? (
                 <>
-                  <button
+                  <AnimatedButton
                     type="button"
                     onClick={() => onEdit(device)}
                     className="rounded-xl border border-[var(--border)] px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--text-secondary)] transition hover:border-[var(--accent)] hover:text-[var(--text-primary)] sm:tracking-[0.16em]"
                   >
                     Edit
-                  </button>
-                  <button
+                  </AnimatedButton>
+                  <AnimatedButton
                     type="button"
                     onClick={() => onDelete(device)}
-                    className="rounded-xl border border-[#FF3B3B]/25 bg-[#FF3B3B]/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#FFB3B3] transition sm:tracking-[0.16em]"
+                    className="rounded-xl border border-[#FFFFFF]/25 bg-[#FFFFFF]/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--text-primary)] transition sm:tracking-[0.16em]"
                   >
                     Delete
-                  </button>
+                  </AnimatedButton>
                 </>
               ) : (
                 <span className="rounded-xl border border-[var(--border)] px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--text-secondary)] sm:tracking-[0.16em]">
@@ -114,9 +125,9 @@ export function DevicesTable({
                 </span>
               )}
             </div>
-          </div>
+          </AnimatedItem>
         ))}
-      </div>
+      </StaggeredList>
     </div>
   );
 }

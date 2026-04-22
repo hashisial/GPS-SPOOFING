@@ -1,3 +1,4 @@
+import { motion, useReducedMotion } from "framer-motion";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { navigation } from "../../config/navigation.js";
@@ -7,6 +8,7 @@ import { authService } from "../../services/auth/auth.service.js";
 import { clearStoredSession } from "../../utils/helpers/auth-storage.js";
 import { clearSession } from "../../app/store/slices/authSlice.js";
 import { ROUTE_PATHS } from "../../routes/route-paths.js";
+import { AnimatedButton } from "../animations/MotionPrimitives.jsx";
 
 function resolveTitle(pathname) {
   const allItems = [...navigation.primary, ...navigation.secondary, ...navigation.public];
@@ -19,6 +21,7 @@ export function Topbar({ onMenuClick }) {
   const location = useLocation();
   const { user } = useAuth();
   const { theme, toggleTheme } = useTheme();
+  const shouldReduceMotion = useReducedMotion();
 
   async function handleLogout() {
     try {
@@ -35,10 +38,15 @@ export function Topbar({ onMenuClick }) {
   }
 
   return (
-    <header className="sticky top-0 z-20 border-b border-[var(--border)] bg-[var(--background-elevated)] px-3 py-3 backdrop-blur sm:px-5 lg:px-8">
+    <motion.header
+      initial={shouldReduceMotion ? false : { opacity: 0, y: -12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35, ease: "easeOut" }}
+      className="sticky top-0 z-20 border-b border-[var(--border)] bg-[var(--background-elevated)] px-3 py-3 backdrop-blur sm:px-5 lg:px-8"
+    >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3">
         <div className="flex min-w-0 items-center gap-3">
-          <button
+          <AnimatedButton
             type="button"
             onClick={onMenuClick}
             className="inline-flex h-11 w-11 shrink-0 flex-col items-center justify-center gap-1 rounded-2xl border border-[var(--border)] bg-[var(--background-muted)] text-[var(--text-primary)] transition hover:border-[var(--accent)] lg:hidden"
@@ -47,7 +55,7 @@ export function Topbar({ onMenuClick }) {
             <span aria-hidden="true" className="h-0.5 w-5 rounded-full bg-current" />
             <span aria-hidden="true" className="h-0.5 w-5 rounded-full bg-current" />
             <span aria-hidden="true" className="h-0.5 w-5 rounded-full bg-current" />
-          </button>
+          </AnimatedButton>
 
           <div className="min-w-0">
             <p className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-[var(--text-secondary)] sm:text-xs">
@@ -60,7 +68,7 @@ export function Topbar({ onMenuClick }) {
         </div>
 
         <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-          <button
+          <AnimatedButton
             type="button"
             onClick={toggleTheme}
             className="rounded-full border border-[var(--border)] px-3 py-2 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--accent)] hover:text-[var(--text-primary)] sm:px-4 sm:text-sm"
@@ -68,25 +76,28 @@ export function Topbar({ onMenuClick }) {
           >
             <span className="hidden sm:inline">Theme: </span>
             {theme}
-          </button>
-          <button
+          </AnimatedButton>
+          <AnimatedButton
             type="button"
             onClick={handleLogout}
             className="rounded-full border border-[var(--border)] px-3 py-2 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--accent)] hover:text-[var(--text-primary)] sm:px-4 sm:text-sm"
           >
             <span className="hidden sm:inline">Sign out</span>
             <span className="sm:hidden">Exit</span>
-          </button>
-          <div className="hidden rounded-full border border-[var(--border)] bg-[var(--background-muted)] px-4 py-2 text-right md:block">
+          </AnimatedButton>
+          <motion.div
+            whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
+            className="hidden rounded-full border border-[var(--border)] bg-[var(--background-muted)] px-4 py-2 text-right md:block"
+          >
             <p className="text-xs uppercase tracking-[0.2em] text-[var(--text-secondary)]">
               Signed In
             </p>
             <p className="max-w-[11rem] truncate text-sm font-medium">
               {user?.name ?? "Frontend shell"}
             </p>
-          </div>
+          </motion.div>
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 }

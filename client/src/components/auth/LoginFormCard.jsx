@@ -1,3 +1,10 @@
+import {
+  AnimatedButton,
+  AnimatedInput,
+  AnimatedItem,
+  MotionCard
+} from "../animations/MotionPrimitives.jsx";
+
 const inputClassName =
   "w-full rounded-2xl border border-[var(--border)] bg-[var(--background-muted)] px-4 py-3 text-sm text-[var(--text-primary)] outline-none transition placeholder:text-[var(--text-secondary)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent-soft)]";
 
@@ -16,7 +23,7 @@ export function LoginFormCard({
   onForgotPassword
 }) {
   return (
-    <section className="rounded-[2rem] border border-[var(--border)] bg-[var(--background-elevated)] p-6 shadow-2xl backdrop-blur sm:p-8">
+    <MotionCard className="rounded-[2rem] border border-[var(--border)] bg-[var(--background-elevated)] p-6 shadow-2xl backdrop-blur sm:p-8">
       <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--accent)]">
         Authenticated Access
       </p>
@@ -32,7 +39,7 @@ export function LoginFormCard({
           <label className="text-sm font-medium text-[var(--text-primary)]" htmlFor="email">
             Email
           </label>
-          <input
+          <AnimatedInput
             id="email"
             name="email"
             type="email"
@@ -50,17 +57,17 @@ export function LoginFormCard({
             <label className="text-sm font-medium text-[var(--text-primary)]" htmlFor="password">
               Password
             </label>
-            <button
+            <AnimatedButton
               type="button"
               onClick={onForgotPassword}
               disabled={isResettingPassword}
               className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--accent)] transition hover:opacity-80 disabled:opacity-50"
             >
               {isResettingPassword ? "Sending..." : "Forgot password?"}
-            </button>
+            </AnimatedButton>
           </div>
           <div className="relative">
-            <input
+            <AnimatedInput
               id="password"
               name="password"
               type={showPassword ? "text" : "password"}
@@ -71,13 +78,13 @@ export function LoginFormCard({
               className={`${inputClassName} pr-24`}
               required
             />
-            <button
+            <AnimatedButton
               type="button"
               onClick={onTogglePassword}
               className="absolute inset-y-2 right-2 rounded-xl border border-[var(--border)] px-3 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-secondary)] transition hover:border-[var(--accent)] hover:text-[var(--text-primary)]"
             >
               {showPassword ? "Hide" : "Show"}
-            </button>
+            </AnimatedButton>
           </div>
         </div>
 
@@ -92,32 +99,32 @@ export function LoginFormCard({
         </label>
 
         {errorMessage ? (
-          <div className="rounded-2xl border border-[#FF3B3B]/35 bg-[#FF3B3B]/10 px-4 py-3 text-sm text-[#FFB3B3]">
+          <AnimatedItem className="rounded-2xl border border-[#FFFFFF]/35 bg-[#FFFFFF]/10 px-4 py-3 text-sm text-[var(--text-primary)]">
             {errorMessage}
-          </div>
+          </AnimatedItem>
         ) : null}
 
         {forgotPasswordMessage ? (
-          <div className="rounded-2xl border border-[#00FFC6]/25 bg-[#00FFC6]/10 px-4 py-3 text-sm text-[#B8FFF0]">
+          <AnimatedItem className="rounded-2xl border border-[#1BC2D5]/25 bg-[#1BC2D5]/10 px-4 py-3 text-sm text-[var(--text-primary)]">
             <div>{forgotPasswordMessage}</div>
             {forgotPasswordResetUrl ? (
               <a
                 href={forgotPasswordResetUrl}
-                className="mt-2 inline-flex text-xs font-semibold uppercase tracking-[0.16em] text-[#00FFC6] underline underline-offset-4"
+                className="mt-2 inline-flex text-xs font-semibold uppercase tracking-[0.16em] text-[#1BC2D5] underline underline-offset-4"
               >
                 Open reset page
               </a>
             ) : null}
-          </div>
+          </AnimatedItem>
         ) : null}
 
-        <button
+        <AnimatedButton
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded-2xl bg-[linear-gradient(135deg,#00FFC6,#74FBE0)] px-5 py-3.5 text-sm font-semibold uppercase tracking-[0.18em] text-[#041018] transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-full rounded-2xl bg-[linear-gradient(135deg,#1BC2D5,#FFFFFF)] px-5 py-3.5 text-sm font-semibold uppercase tracking-[0.18em] text-[#000000] transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isSubmitting ? "Authenticating..." : "Enter dashboard"}
-        </button>
+        </AnimatedButton>
       </form>
 
       <div className="mt-6 rounded-2xl border border-[var(--border)] bg-[var(--background-muted)] px-4 py-4">
@@ -130,6 +137,6 @@ export function LoginFormCard({
           <li>Forgot password uses the backend recovery API with the current email field.</li>
         </ul>
       </div>
-    </section>
+    </MotionCard>
   );
 }

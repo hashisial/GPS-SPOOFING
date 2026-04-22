@@ -307,13 +307,13 @@ export function DevicesPage() {
         description="Review current devices, edit metadata, and manage inventory lifecycle from a single responsive table."
       >
         {pageError ? (
-          <div className="mb-4 rounded-2xl border border-[#FF3B3B]/35 bg-[#FF3B3B]/10 px-4 py-3 text-sm text-[#FFB3B3]">
+          <div className="mb-4 rounded-2xl border border-[#FFFFFF]/35 bg-[#FFFFFF]/10 px-4 py-3 text-sm text-[var(--text-primary)]">
             {pageError}
           </div>
         ) : null}
 
         {ownersError && canManageDevices ? (
-          <div className="mb-4 rounded-2xl border border-[#8B949E]/25 bg-[#8B949E]/10 px-4 py-3 text-sm text-[#C3CBD3]">
+          <div className="mb-4 rounded-2xl border border-[#145052]/25 bg-[#145052]/10 px-4 py-3 text-sm text-[var(--text-primary)]">
             Owner directory could not be loaded. You can still review devices, but owner assignment is temporarily unavailable.
           </div>
         ) : null}

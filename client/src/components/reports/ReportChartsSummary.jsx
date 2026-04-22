@@ -32,7 +32,7 @@ function BreakdownChart({ title, items }) {
             </div>
             <div className="h-2 overflow-hidden rounded-full bg-white/5">
               <div
-                className="h-full rounded-full bg-[linear-gradient(90deg,#38bdf8,#22d3ee)]"
+                className="h-full rounded-full bg-[linear-gradient(90deg,#145052,#1BC2D5)]"
                 style={{ width: `${(item.value / maxValue) * 100}%` }}
               />
             </div>

@@ -2,32 +2,34 @@
 
 :root {
   color-scheme: dark;
-  --background: #0d1117;
-  --background-elevated: rgba(13, 17, 23, 0.92);
-  --background-muted: rgba(22, 27, 34, 0.82);
-  --border: rgba(139, 148, 158, 0.22);
-  --text-primary: #f0f6fc;
-  --text-secondary: #8b949e;
-  --accent: #00ffc6;
-  --accent-soft: rgba(0, 255, 198, 0.12);
-  --success: #00ffc6;
-  --warning: #8b949e;
-  --danger: #ff3b3b;
-  --danger-soft: rgba(255, 59, 59, 0.14);
+  --background: #145052;
+  --background-elevated: rgba(0, 0, 0, 0.66);
+  --background-muted: rgba(0, 0, 0, 0.32);
+  --border: rgba(255, 255, 255, 0.2);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.72);
+  --accent: #1bc2d5;
+  --accent-soft: rgba(27, 194, 213, 0.14);
+  --success: #ffffff;
+  --warning: #145052;
+  --danger: #ffffff;
+  --danger-soft: rgba(255, 255, 255, 0.12);
 }
 
 html[data-theme="light"] {
   color-scheme: light;
-  --background: #f4f4f5;
+  --background: #ffffff;
   --background-elevated: rgba(255, 255, 255, 0.96);
-  --background-muted: rgba(228, 228, 231, 0.85);
-  --border: rgba(24, 24, 27, 0.1);
-  --text-primary: #09090b;
-  --text-secondary: #52525b;
-  --accent: #18181b;
-  --accent-soft: rgba(24, 24, 27, 0.08);
-  --success: #3f3f46;
-  --warning: #71717a;
+  --background-muted: rgba(20, 80, 82, 0.08);
+  --border: rgba(0, 0, 0, 0.12);
+  --text-primary: #000000;
+  --text-secondary: #145052;
+  --accent: #1bc2d5;
+  --accent-soft: rgba(27, 194, 213, 0.12);
+  --success: #145052;
+  --warning: #145052;
+  --danger: #000000;
+  --danger-soft: rgba(0, 0, 0, 0.08);
 }
 
 body {
@@ -35,10 +37,7 @@ body {
   width: 100%;
   min-height: 100vh;
   overflow-x: hidden;
-  background:
-    radial-gradient(circle at top left, rgba(0, 255, 198, 0.12), transparent 24rem),
-    radial-gradient(circle at top right, rgba(139, 148, 158, 0.1), transparent 20rem),
-    var(--background);
+  background: var(--background);
   color: var(--text-primary);
   font-family: "Segoe UI", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
@@ -78,8 +77,8 @@ button {
 
 .cyber-grid {
   background-image:
-    linear-gradient(rgba(0, 255, 198, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 255, 198, 0.08) 1px, transparent 1px);
+    linear-gradient(rgba(27, 194, 213, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(27, 194, 213, 0.1) 1px, transparent 1px);
   background-size: 32px 32px;
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.65), transparent 88%);
 }
@@ -90,8 +89,8 @@ button {
   flex-direction: column;
   justify-content: space-between;
   border-radius: 1.25rem;
-  border: 1px solid rgba(0, 255, 198, 0.14);
-  background: rgba(0, 255, 198, 0.05);
+  border: 1px solid rgba(27, 194, 213, 0.18);
+  background: rgba(27, 194, 213, 0.07);
   padding: 1rem;
   backdrop-filter: blur(16px);
 }
@@ -117,12 +116,146 @@ button {
   overflow: hidden;
   border: 1px solid var(--border);
   background:
-    linear-gradient(180deg, rgba(0, 255, 198, 0.03), rgba(0, 255, 198, 0)),
+    linear-gradient(180deg, rgba(27, 194, 213, 0.07), rgba(27, 194, 213, 0)),
     var(--background-elevated);
   box-shadow:
     0 18px 50px rgba(0, 0, 0, 0.28),
-    inset 0 1px 0 rgba(0, 255, 198, 0.05);
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(20px);
+  transition:
+    border-color 180ms ease,
+    box-shadow 220ms ease,
+    transform 220ms ease,
+    background 220ms ease;
+}
+
+.gps-signal-backdrop {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 16%, rgba(27, 194, 213, 0.34), transparent 18rem),
+    radial-gradient(circle at 84% 10%, rgba(255, 255, 255, 0.14), transparent 19rem),
+    radial-gradient(circle at 70% 82%, rgba(27, 194, 213, 0.2), transparent 24rem),
+    linear-gradient(135deg, #145052 0%, #000000 52%, #145052 100%);
+}
+
+.gps-signal-backdrop::before {
+  position: absolute;
+  inset: -20%;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 5rem 5rem;
+  content: "";
+  opacity: 0.34;
+  transform: rotate(-8deg);
+  animation: signalGridDrift 18s linear infinite;
+}
+
+.gps-signal-backdrop::after {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(120deg, transparent 0%, rgba(27, 194, 213, 0.12) 46%, transparent 58%),
+    repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.035) 0, rgba(255, 255, 255, 0.035) 1px, transparent 1px, transparent 11px);
+  content: "";
+  opacity: 0.22;
+  animation: signalSweep 7s ease-in-out infinite;
+}
+
+.gps-signal-backdrop__mesh {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 50%, transparent 0 7rem, rgba(27, 194, 213, 0.15) 7.08rem, transparent 7.2rem),
+    radial-gradient(circle at 72% 44%, transparent 0 10rem, rgba(255, 255, 255, 0.09) 10.08rem, transparent 10.22rem);
+  opacity: 0.72;
+  animation: signalPulse 5.5s ease-in-out infinite;
+}
+
+.gps-signal-backdrop__orbit,
+.gps-signal-backdrop__route,
+.gps-signal-backdrop__beacon {
+  position: absolute;
+}
+
+.gps-signal-backdrop__orbit {
+  border: 1px solid rgba(27, 194, 213, 0.28);
+  border-radius: 999px;
+  box-shadow: 0 0 48px rgba(27, 194, 213, 0.12);
+}
+
+.gps-signal-backdrop__orbit--one {
+  left: 12%;
+  top: 28%;
+  width: 24rem;
+  height: 24rem;
+  animation: orbitFloat 9s ease-in-out infinite;
+}
+
+.gps-signal-backdrop__orbit--two {
+  right: 7%;
+  bottom: 10%;
+  width: 31rem;
+  height: 31rem;
+  border-color: rgba(255, 255, 255, 0.16);
+  animation: orbitFloat 11s ease-in-out infinite reverse;
+}
+
+.gps-signal-backdrop__route {
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(27, 194, 213, 0.78), rgba(255, 255, 255, 0.72), transparent);
+  box-shadow: 0 0 24px rgba(27, 194, 213, 0.3);
+  opacity: 0.58;
+  transform-origin: left;
+}
+
+.gps-signal-backdrop__route--one {
+  left: 17%;
+  top: 42%;
+  width: 44rem;
+  transform: rotate(-12deg);
+  animation: routeTrace 6.5s ease-in-out infinite;
+}
+
+.gps-signal-backdrop__route--two {
+  right: 9%;
+  top: 64%;
+  width: 36rem;
+  transform: rotate(18deg);
+  animation: routeTrace 7.8s ease-in-out infinite 1s;
+}
+
+.gps-signal-backdrop__beacon {
+  width: 0.72rem;
+  height: 0.72rem;
+  border-radius: 999px;
+  background: #1bc2d5;
+  box-shadow:
+    0 0 0 0 rgba(27, 194, 213, 0.35),
+    0 0 30px rgba(27, 194, 213, 0.8);
+  animation: beaconPing 2.5s ease-out infinite;
+}
+
+.gps-signal-backdrop__beacon--one {
+  left: 26%;
+  top: 38%;
+}
+
+.gps-signal-backdrop__beacon--two {
+  right: 28%;
+  top: 58%;
+  animation-delay: 0.7s;
+}
+
+.gps-signal-backdrop__beacon--three {
+  left: 62%;
+  top: 28%;
+  animation-delay: 1.35s;
 }
 
 .dashboard-panel::after {
@@ -131,14 +264,416 @@ button {
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(circle at top right, rgba(0, 255, 198, 0.08), transparent 28%),
-    linear-gradient(120deg, transparent 20%, rgba(0, 255, 198, 0.03) 50%, transparent 80%);
+    radial-gradient(circle at top right, rgba(27, 194, 213, 0.12), transparent 28%),
+    linear-gradient(120deg, transparent 20%, rgba(255, 255, 255, 0.045) 50%, transparent 80%);
   opacity: 0.9;
 }
 
 .dashboard-panel > * {
   position: relative;
   z-index: 1;
+}
+
+.dashboard-panel:hover,
+.interactive-card:hover {
+  border-color: rgba(27, 194, 213, 0.48);
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.34),
+    0 0 32px rgba(27, 194, 213, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.ambient-field {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.42;
+  mix-blend-mode: screen;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), transparent 82%);
+}
+
+.ambient-field canvas {
+  pointer-events: none !important;
+}
+
+.status-pill {
+  position: relative;
+  overflow: hidden;
+}
+
+.motion-card,
+.animated-input,
+.interactive-button {
+  will-change: transform;
+}
+
+.interactive-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.interactive-button::after {
+  position: absolute;
+  inset: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  content: "";
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition:
+    width 280ms ease,
+    height 280ms ease,
+    opacity 280ms ease;
+}
+
+.interactive-button:active::after {
+  width: 180%;
+  height: 180%;
+  opacity: 1;
+  transition-duration: 0ms;
+}
+
+.motion-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.motion-card::before,
+.border-sheen::before {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 20%, rgba(255, 255, 255, 0.08), transparent 78%);
+  content: "";
+  opacity: 0;
+  transform: translateX(-45%);
+  transition:
+    opacity 180ms ease,
+    transform 500ms ease;
+}
+
+.motion-card:hover::before,
+.border-sheen:hover::before {
+  opacity: 1;
+  transform: translateX(45%);
+}
+
+.animated-input {
+  box-shadow: 0 0 0 0 rgba(27, 194, 213, 0);
+}
+
+.animated-input:focus {
+  box-shadow: 0 0 0 3px rgba(27, 194, 213, 0.12);
+}
+
+.animated-tabs {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.42);
+  padding: 0.3rem;
+}
+
+.animated-tab {
+  position: relative;
+  overflow: hidden;
+  border-radius: 999px;
+  padding: 0.55rem 0.9rem;
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.animated-tab.is-active {
+  color: var(--text-primary);
+}
+
+.animated-tab-pill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--accent-soft);
+  border: 1px solid rgba(27, 194, 213, 0.38);
+}
+
+.loading-overlay-motion {
+  display: grid;
+  min-height: 14rem;
+  place-items: center;
+  gap: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 1.75rem;
+  background: var(--background-muted);
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.loading-orb {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 35% 35%, #ffffff, rgba(255, 255, 255, 0.1) 34%, transparent 58%),
+    radial-gradient(circle, rgba(27, 194, 213, 0.65), transparent 68%);
+  box-shadow: 0 0 32px rgba(27, 194, 213, 0.28);
+  animation: orbFloat 2.8s ease-in-out infinite;
+}
+
+.modal-backdrop-motion {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.62);
+  padding: 1rem;
+  backdrop-filter: blur(14px);
+}
+
+.status-pill::after {
+  animation: statusSweep 2.8s ease-in-out infinite;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+  content: "";
+  inset: 0;
+  position: absolute;
+  transform: translateX(-120%);
+}
+
+.skeleton-shimmer {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: rgba(20, 80, 82, 0.32);
+}
+
+.skeleton-shimmer::after {
+  animation: shimmer 1.35s ease-in-out infinite;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.09), transparent);
+  content: "";
+  inset: 0;
+  position: absolute;
+  transform: translateX(-100%);
+}
+
+.cyber-leaflet-map .leaflet-tile {
+  filter: invert(1) hue-rotate(180deg) saturate(0.55) brightness(0.62) contrast(1.15);
+}
+
+.cyber-leaflet-map .leaflet-control-attribution {
+  border-radius: 0.75rem 0 0 0;
+  background: rgba(0, 0, 0, 0.78);
+  color: var(--text-secondary);
+  backdrop-filter: blur(12px);
+}
+
+.cyber-leaflet-map .leaflet-control-attribution a {
+  color: var(--accent);
+}
+
+.map-marker,
+.map-marker-selected {
+  filter: drop-shadow(0 0 9px rgba(27, 194, 213, 0.48));
+  transition:
+    opacity 180ms ease,
+    stroke-width 180ms ease,
+    filter 180ms ease;
+}
+
+.map-marker-selected {
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.74));
+}
+
+.map-pulse-ring {
+  animation: mapPulse 1.75s ease-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+  filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.6));
+  will-change: opacity, transform;
+}
+
+.route-flow {
+  stroke-dasharray: 10 14;
+  animation: routeFlow 1.9s linear infinite;
+}
+
+.nav-active-indicator {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    linear-gradient(135deg, rgba(27, 194, 213, 0.18), rgba(255, 255, 255, 0.04)),
+    var(--accent-soft);
+  border: 1px solid rgba(27, 194, 213, 0.42);
+  z-index: -1;
+}
+
+.leaflet-cyber-tooltip {
+  animation: tooltipLift 160ms ease-out;
+  border: 1px solid rgba(27, 194, 213, 0.32) !important;
+  border-radius: 0.85rem !important;
+  background: rgba(0, 0, 0, 0.94) !important;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
+  color: var(--text-primary) !important;
+  padding: 0.65rem 0.75rem !important;
+  backdrop-filter: blur(14px);
+}
+
+.leaflet-cyber-tooltip::before {
+  border-top-color: rgba(0, 0, 0, 0.94) !important;
+}
+
+@keyframes shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes statusSweep {
+  0%,
+  35% {
+    transform: translateX(-120%);
+  }
+
+  75%,
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+@keyframes mapPulse {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.72);
+  }
+
+  70% {
+    opacity: 0.1;
+    transform: scale(1.35);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.55);
+  }
+}
+
+@keyframes tooltipLift {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes orbFloat {
+  0%,
+  100% {
+    opacity: 0.82;
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(-0.35rem) scale(1.04);
+  }
+}
+
+@keyframes routeFlow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+@keyframes signalGridDrift {
+  to {
+    transform: translate3d(-5rem, 5rem, 0) rotate(-8deg);
+  }
+}
+
+@keyframes signalSweep {
+  0%,
+  100% {
+    opacity: 0.16;
+    transform: translateX(-8%);
+  }
+
+  50% {
+    opacity: 0.3;
+    transform: translateX(8%);
+  }
+}
+
+@keyframes signalPulse {
+  0%,
+  100% {
+    opacity: 0.48;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.78;
+    transform: scale(1.03);
+  }
+}
+
+@keyframes orbitFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(1.25rem, -0.9rem, 0) scale(1.04);
+  }
+}
+
+@keyframes routeTrace {
+  0%,
+  100% {
+    opacity: 0.26;
+    clip-path: inset(0 100% 0 0);
+  }
+
+  45%,
+  70% {
+    opacity: 0.72;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes beaconPing {
+  0% {
+    box-shadow:
+      0 0 0 0 rgba(27, 194, 213, 0.36),
+      0 0 30px rgba(27, 194, 213, 0.84);
+    transform: scale(0.92);
+  }
+
+  72% {
+    box-shadow:
+      0 0 0 2rem rgba(27, 194, 213, 0),
+      0 0 24px rgba(27, 194, 213, 0.52);
+    transform: scale(1);
+  }
+
+  100% {
+    box-shadow:
+      0 0 0 2.2rem rgba(27, 194, 213, 0),
+      0 0 24px rgba(27, 194, 213, 0.5);
+    transform: scale(0.92);
+  }
 }
 
 .dashboard-panel,
@@ -171,6 +706,17 @@ input,
 select,
 textarea {
   min-width: 0;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease,
+    background 180ms ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  transform: translateY(-1px);
 }
 
 @media (max-width: 640px) {
@@ -187,5 +733,29 @@ textarea {
 
   .dashboard-panel {
     padding: 1rem !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .ambient-field {
+    display: none;
+  }
+
+  .gps-signal-backdrop::before,
+  .gps-signal-backdrop::after,
+  .gps-signal-backdrop__mesh,
+  .gps-signal-backdrop__orbit,
+  .gps-signal-backdrop__route,
+  .gps-signal-backdrop__beacon {
+    animation: none !important;
   }
 }

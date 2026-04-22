@@ -8,11 +8,40 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          react: ["react", "react-dom", "react-router-dom"],
-          redux: ["@reduxjs/toolkit", "react-redux"],
-          maps: ["leaflet", "react-leaflet"],
-          realtime: ["socket.io-client"]
+        manualChunks(id) {
+          const normalizedId = id.replace(/\\/g, "/");
+
+          if (!normalizedId.includes("/node_modules/")) {
+            return undefined;
+          }
+
+          if (
+            normalizedId.includes("/react/") ||
+            normalizedId.includes("/react-dom/") ||
+            normalizedId.includes("/react-router-dom/")
+          ) {
+            return "react";
+          }
+
+          if (
+            normalizedId.includes("/@reduxjs/toolkit/") ||
+            normalizedId.includes("/react-redux/")
+          ) {
+            return "redux";
+          }
+
+          if (
+            normalizedId.includes("/leaflet/") ||
+            normalizedId.includes("/react-leaflet/")
+          ) {
+            return "maps";
+          }
+
+          if (normalizedId.includes("/socket.io-client/")) {
+            return "realtime";
+          }
+
+          return undefined;
         }
       }
     }

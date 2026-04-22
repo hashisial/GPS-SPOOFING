@@ -1,4 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
+import {
+  AnimatedButton,
+  AnimatedInput,
+  AnimatedItem,
+  MotionModal,
+  SkeletonBlock,
+  StaggeredList
+} from "../animations/MotionPrimitives.jsx";
 import { AlertBadge } from "./AlertBadge.jsx";
 import { canActOnAlert, formatAlertDate } from "./alert-ui.js";
 
@@ -71,8 +79,7 @@ export function AlertDetailsModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-slate-950/75 px-3 py-4 backdrop-blur sm:items-center sm:px-4 sm:py-6">
-      <div className="max-h-[calc(100vh-2rem)] w-full max-w-5xl overflow-hidden rounded-[1.5rem] border border-[var(--border)] bg-[var(--background-elevated)] shadow-2xl sm:max-h-[92vh] sm:rounded-[2rem]">
+    <MotionModal className="max-h-[calc(100vh-2rem)] w-full max-w-5xl overflow-hidden rounded-[1.5rem] border border-[var(--border)] bg-[var(--background-elevated)] shadow-2xl sm:max-h-[92vh] sm:rounded-[2rem]">
         <div className="flex items-start justify-between gap-3 border-b border-[var(--border)] px-4 py-4 sm:px-6 sm:py-5">
           <div className="min-w-0">
             <p className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--accent)] sm:text-xs sm:tracking-[0.24em]">
@@ -85,22 +92,23 @@ export function AlertDetailsModal({
               <p className="mt-2 text-sm text-[var(--text-secondary)]">{actionHint}</p>
             ) : null}
           </div>
-          <button
+          <AnimatedButton
             type="button"
             onClick={onClose}
             className="rounded-full border border-[var(--border)] px-4 py-2 text-sm text-[var(--text-secondary)] transition hover:border-[var(--accent)] hover:text-[var(--text-primary)]"
           >
             Close
-          </button>
+          </AnimatedButton>
         </div>
 
         <div className="max-h-[calc(100vh-8rem)] overflow-y-auto px-4 py-5 sm:max-h-[calc(92vh-5.5rem)] sm:px-6 sm:py-6">
           {isLoading ? (
             <div className="rounded-[1.5rem] border border-[var(--border)] bg-[var(--background-muted)] p-5 text-sm text-[var(--text-secondary)]">
-              Loading alert details...
+              <div className="mb-3">Loading alert details...</div>
+              <SkeletonBlock className="h-36 rounded-[1.25rem]" />
             </div>
           ) : errorMessage ? (
-            <div className="rounded-[1.5rem] border border-[#FF3B3B]/35 bg-[#FF3B3B]/10 p-5 text-sm text-[#FFB3B3]">
+            <div className="rounded-[1.5rem] border border-[#FFFFFF]/35 bg-[#FFFFFF]/10 p-5 text-sm text-[var(--text-primary)]">
               {errorMessage}
             </div>
           ) : alert ? (
@@ -152,8 +160,9 @@ export function AlertDetailsModal({
 
                 <Section title="Findings">
                   <div className="space-y-3">
+                    <StaggeredList className="space-y-3">
                     {(alert.findings ?? []).map((finding) => (
-                      <article
+                      <AnimatedItem
                         key={`${finding.rule}-${finding.summary}`}
                         className="rounded-[1.25rem] border border-[var(--border)] bg-[var(--background)] p-4"
                       >
@@ -166,8 +175,9 @@ export function AlertDetailsModal({
                         <div className="mt-2 text-xs uppercase tracking-[0.16em] text-[var(--text-secondary)]">
                           Risk {finding.riskScore}
                         </div>
-                      </article>
+                      </AnimatedItem>
                     ))}
+                    </StaggeredList>
                   </div>
                 </Section>
               </div>
@@ -175,8 +185,9 @@ export function AlertDetailsModal({
               <div className="space-y-4">
                 <Section title="Action History">
                   <div className="space-y-3">
+                    <StaggeredList className="space-y-3">
                     {(alert.actionHistory ?? []).map((entry, index) => (
-                      <div
+                      <AnimatedItem
                         key={`${entry.action}-${entry.timestamp}-${index}`}
                         className="rounded-[1.25rem] border border-[var(--border)] bg-[var(--background)] p-4"
                       >
@@ -194,8 +205,9 @@ export function AlertDetailsModal({
                         <div className="mt-2 text-xs uppercase tracking-[0.16em] text-[var(--text-secondary)]">
                           {entry.actor?.name ?? entry.actorRole ?? "System"}
                         </div>
-                      </div>
+                      </AnimatedItem>
                     ))}
+                    </StaggeredList>
                   </div>
                 </Section>
 
@@ -205,55 +217,57 @@ export function AlertDetailsModal({
                       <div
                         className={`rounded-[1.25rem] border p-4 ${
                           preferredAction === "resolve"
-                            ? "border-[#00FFC6]/20 bg-[#00FFC6]/10"
+                            ? "border-[#1BC2D5]/20 bg-[#1BC2D5]/10"
                             : "border-[var(--border)] bg-[var(--background)]"
                         }`}
                       >
                         <div className="text-sm font-semibold text-[var(--text-primary)]">
                           Resolve Alert
                         </div>
-                        <textarea
+                        <AnimatedInput
+                          as="textarea"
                           value={resolveNote}
                           onChange={(event) => setResolveNote(event.target.value)}
                           placeholder="Optional resolution note"
                           rows={3}
                           className={`${inputClassName} mt-3 resize-none`}
                         />
-                        <button
+                        <AnimatedButton
                           type="button"
                           onClick={handleResolve}
                           disabled={actionState === "resolve"}
-                          className="mt-3 rounded-2xl border border-[#00FFC6]/20 bg-[#00FFC6]/10 px-4 py-3 text-sm font-semibold text-[#9DFFEB] transition disabled:cursor-not-allowed disabled:opacity-50"
+                          className="mt-3 rounded-2xl border border-[#1BC2D5]/20 bg-[#1BC2D5]/10 px-4 py-3 text-sm font-semibold text-[var(--text-primary)] transition disabled:cursor-not-allowed disabled:opacity-50"
                         >
                           {actionState === "resolve" ? "Resolving..." : "Resolve"}
-                        </button>
+                        </AnimatedButton>
                       </div>
 
                       <div
                         className={`rounded-[1.25rem] border p-4 ${
                           preferredAction === "falsePositive"
-                            ? "border-[#8B949E]/25 bg-[#8B949E]/10"
+                            ? "border-[#145052]/25 bg-[#145052]/10"
                             : "border-[var(--border)] bg-[var(--background)]"
                         }`}
                       >
                         <div className="text-sm font-semibold text-[var(--text-primary)]">
                           Mark False Positive
                         </div>
-                        <textarea
+                        <AnimatedInput
+                          as="textarea"
                           value={falsePositiveReason}
                           onChange={(event) => setFalsePositiveReason(event.target.value)}
                           placeholder="Required reason for marking this alert as false positive"
                           rows={3}
                           className={`${inputClassName} mt-3 resize-none`}
                         />
-                        <button
+                        <AnimatedButton
                           type="button"
                           onClick={handleFalsePositive}
                           disabled={actionState === "falsePositive" || falsePositiveReason.trim().length < 3}
-                          className="mt-3 rounded-2xl border border-[#8B949E]/25 bg-[#8B949E]/10 px-4 py-3 text-sm font-semibold text-[#C3CBD3] transition disabled:cursor-not-allowed disabled:opacity-50"
+                          className="mt-3 rounded-2xl border border-[#145052]/25 bg-[#145052]/10 px-4 py-3 text-sm font-semibold text-[var(--text-primary)] transition disabled:cursor-not-allowed disabled:opacity-50"
                         >
                           {actionState === "falsePositive" ? "Submitting..." : "Mark False Positive"}
-                        </button>
+                        </AnimatedButton>
                       </div>
                     </div>
                   ) : (
@@ -266,7 +280,6 @@ export function AlertDetailsModal({
             </div>
           ) : null}
         </div>
-      </div>
-    </div>
+    </MotionModal>
   );
 }

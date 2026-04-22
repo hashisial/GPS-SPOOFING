@@ -39,10 +39,10 @@ export const dashboardMetrics = [
 ];
 
 export const riskDistribution = [
-  { label: "Low", value: 22, color: "#00FFC6" },
-  { label: "Medium", value: 31, color: "#8B949E" },
-  { label: "High", value: 29, color: "#FF7A7A" },
-  { label: "Critical", value: 18, color: "#FF3B3B" }
+  { label: "Low", value: 22, color: "#1BC2D5" },
+  { label: "Medium", value: 31, color: "#145052" },
+  { label: "High", value: 29, color: "#1BC2D5" },
+  { label: "Critical", value: 18, color: "#FFFFFF" }
 ];
 
 export const threatTrend = [

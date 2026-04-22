@@ -1,4 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
+import {
+  AnimatedButton,
+  AnimatedInput,
+  AnimatedItem,
+  MotionModal
+} from "../animations/MotionPrimitives.jsx";
 import { APP_ROLES } from "../../utils/constants/app.constants.js";
 
 const inputClassName =
@@ -71,105 +77,109 @@ export function UserFormModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-slate-950/75 px-3 py-4 backdrop-blur sm:items-center sm:px-4 sm:py-6">
-      <div className="w-full max-w-2xl overflow-hidden rounded-[1.5rem] border border-[var(--border)] bg-[var(--background-elevated)] shadow-2xl sm:rounded-[2rem]">
-        <div className="flex items-start justify-between gap-3 border-b border-[var(--border)] px-4 py-4 sm:px-6 sm:py-5">
-          <div className="min-w-0">
-            <p className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--accent)] sm:text-xs sm:tracking-[0.24em]">
-              User Management
-            </p>
-            <h2 className="mt-2 text-xl font-semibold leading-tight text-[var(--text-primary)] sm:text-2xl">{title}</h2>
+    <MotionModal className="w-full max-w-2xl overflow-hidden rounded-[1.5rem] border border-[var(--border)] bg-[var(--background-elevated)] shadow-2xl sm:rounded-[2rem]">
+      <div className="flex items-start justify-between gap-3 border-b border-[var(--border)] px-4 py-4 sm:px-6 sm:py-5">
+        <div className="min-w-0">
+          <p className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--accent)] sm:text-xs sm:tracking-[0.24em]">
+            User Management
+          </p>
+          <h2 className="mt-2 text-xl font-semibold leading-tight text-[var(--text-primary)] sm:text-2xl">
+            {title}
+          </h2>
+        </div>
+        <AnimatedButton
+          type="button"
+          onClick={onClose}
+          className="rounded-full border border-[var(--border)] px-4 py-2 text-sm text-[var(--text-secondary)] transition hover:border-[var(--accent)] hover:text-[var(--text-primary)]"
+        >
+          Close
+        </AnimatedButton>
+      </div>
+
+      <form
+        className="max-h-[calc(100vh-9rem)] space-y-5 overflow-y-auto px-4 py-5 sm:max-h-none sm:px-6 sm:py-6"
+        onSubmit={handleSubmit}
+      >
+        <div className="grid gap-4 md:grid-cols-2">
+          <div>
+            <label className="text-sm font-medium text-[var(--text-primary)]">Name</label>
+            <AnimatedInput
+              name="name"
+              value={form.name}
+              onChange={handleChange}
+              className={`${inputClassName} mt-2`}
+              minLength={2}
+              maxLength={80}
+              required
+            />
           </div>
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded-full border border-[var(--border)] px-4 py-2 text-sm text-[var(--text-secondary)] transition hover:border-[var(--accent)] hover:text-[var(--text-primary)]"
-          >
-            Close
-          </button>
+          <div>
+            <label className="text-sm font-medium text-[var(--text-primary)]">Email</label>
+            <AnimatedInput
+              name="email"
+              type="email"
+              value={form.email}
+              onChange={handleChange}
+              className={`${inputClassName} mt-2`}
+              required
+            />
+          </div>
+          <div>
+            <label className="text-sm font-medium text-[var(--text-primary)]">Role</label>
+            <AnimatedInput
+              as="select"
+              name="role"
+              value={form.role}
+              onChange={handleChange}
+              className={`${inputClassName} mt-2`}
+            >
+              {Object.values(APP_ROLES).map((role) => (
+                <option key={role} value={role}>
+                  {role}
+                </option>
+              ))}
+            </AnimatedInput>
+          </div>
+          <div>
+            <label className="text-sm font-medium text-[var(--text-primary)]">
+              {mode === "edit" ? "New Password" : "Password"}
+            </label>
+            <AnimatedInput
+              name="password"
+              type="password"
+              value={form.password}
+              onChange={handleChange}
+              className={`${inputClassName} mt-2`}
+              minLength={8}
+              placeholder={mode === "edit" ? "Leave blank to keep current password" : ""}
+              required={mode === "create"}
+            />
+          </div>
         </div>
 
-        <form className="max-h-[calc(100vh-9rem)] space-y-5 overflow-y-auto px-4 py-5 sm:max-h-none sm:px-6 sm:py-6" onSubmit={handleSubmit}>
-          <div className="grid gap-4 md:grid-cols-2">
-            <div>
-              <label className="text-sm font-medium text-[var(--text-primary)]">Name</label>
-              <input
-                name="name"
-                value={form.name}
-                onChange={handleChange}
-                className={`${inputClassName} mt-2`}
-                minLength={2}
-                maxLength={80}
-                required
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium text-[var(--text-primary)]">Email</label>
-              <input
-                name="email"
-                type="email"
-                value={form.email}
-                onChange={handleChange}
-                className={`${inputClassName} mt-2`}
-                required
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium text-[var(--text-primary)]">Role</label>
-              <select
-                name="role"
-                value={form.role}
-                onChange={handleChange}
-                className={`${inputClassName} mt-2`}
-              >
-                {Object.values(APP_ROLES).map((role) => (
-                  <option key={role} value={role}>
-                    {role}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className="text-sm font-medium text-[var(--text-primary)]">
-                {mode === "edit" ? "New Password" : "Password"}
-              </label>
-              <input
-                name="password"
-                type="password"
-                value={form.password}
-                onChange={handleChange}
-                className={`${inputClassName} mt-2`}
-                minLength={8}
-                placeholder={mode === "edit" ? "Leave blank to keep current password" : ""}
-                required={mode === "create"}
-              />
-            </div>
-          </div>
+        {errorMessage ? (
+          <AnimatedItem className="rounded-2xl border border-[#FFFFFF]/35 bg-[#FFFFFF]/10 px-4 py-3 text-sm text-[var(--text-primary)]">
+            {errorMessage}
+          </AnimatedItem>
+        ) : null}
 
-          {errorMessage ? (
-            <div className="rounded-2xl border border-[#FF3B3B]/35 bg-[#FF3B3B]/10 px-4 py-3 text-sm text-[#FFB3B3]">
-              {errorMessage}
-            </div>
-          ) : null}
-
-          <div className="flex flex-col-reverse gap-3 sm:flex-row sm:flex-wrap sm:justify-end">
-            <button
-              type="button"
-              onClick={onClose}
-              className="rounded-2xl border border-[var(--border)] px-4 py-3 text-sm font-semibold text-[var(--text-secondary)] transition hover:border-[var(--accent)] hover:text-[var(--text-primary)]"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="rounded-2xl bg-[linear-gradient(135deg,#00FFC6,#74FBE0)] px-5 py-3 text-sm font-semibold text-[#041018] disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {isSubmitting ? "Saving..." : mode === "edit" ? "Save User" : "Create User"}
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+        <div className="flex flex-col-reverse gap-3 sm:flex-row sm:flex-wrap sm:justify-end">
+          <AnimatedButton
+            type="button"
+            onClick={onClose}
+            className="rounded-2xl border border-[var(--border)] px-4 py-3 text-sm font-semibold text-[var(--text-secondary)] transition hover:border-[var(--accent)] hover:text-[var(--text-primary)]"
+          >
+            Cancel
+          </AnimatedButton>
+          <AnimatedButton
+            type="submit"
+            disabled={isSubmitting}
+            className="rounded-2xl bg-[linear-gradient(135deg,#1BC2D5,#FFFFFF)] px-5 py-3 text-sm font-semibold text-[#000000] disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {isSubmitting ? "Saving..." : mode === "edit" ? "Save User" : "Create User"}
+          </AnimatedButton>
+        </div>
+      </form>
+    </MotionModal>
   );
 }

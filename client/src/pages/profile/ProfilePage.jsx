@@ -114,7 +114,7 @@ export function ProfilePage() {
       />
 
       {errorMessage ? (
-        <div className="rounded-[1.75rem] border border-[#FF3B3B]/35 bg-[#FF3B3B]/10 px-5 py-4 text-sm text-[#FFB3B3]">
+        <div className="rounded-[1.75rem] border border-[#FFFFFF]/35 bg-[#FFFFFF]/10 px-5 py-4 text-sm text-[var(--text-primary)]">
           {errorMessage}
         </div>
       ) : null}
@@ -164,7 +164,7 @@ export function ProfilePage() {
               </div>
 
               {successMessage ? (
-                <div className="rounded-2xl border border-[#00FFC6]/20 bg-[#00FFC6]/10 px-4 py-3 text-sm text-[#B8FFF0]">
+                <div className="rounded-2xl border border-[#1BC2D5]/20 bg-[#1BC2D5]/10 px-4 py-3 text-sm text-[var(--text-primary)]">
                   {successMessage}
                 </div>
               ) : null}
@@ -173,7 +173,7 @@ export function ProfilePage() {
                 <button
                   type="submit"
                   disabled={isSaving}
-                  className="rounded-2xl bg-[linear-gradient(135deg,#22d3ee,#0ea5e9)] px-5 py-3 text-sm font-semibold text-slate-950 disabled:cursor-not-allowed disabled:opacity-60"
+                  className="rounded-2xl bg-[#1BC2D5] px-5 py-3 text-sm font-semibold text-[#000000] shadow-[0_0_24px_rgba(27,194,213,0.24)] transition hover:bg-[#FFFFFF] disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {isSaving ? "Saving..." : "Save Profile"}
                 </button>

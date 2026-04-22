@@ -1,3 +1,5 @@
+import { motion, useReducedMotion } from "framer-motion";
+
 function buildLinePath(points, width, height, padding) {
   const max = Math.max(...points.map((point) => point.value));
   const min = Math.min(...points.map((point) => point.value));
@@ -35,6 +37,7 @@ function buildAreaPath(points, width, height, padding) {
 }
 
 export function ThreatTrendChart({ points }) {
+  const shouldReduceMotion = useReducedMotion();
   const width = 640;
   const height = 240;
   const padding = 24;
@@ -55,7 +58,7 @@ export function ThreatTrendChart({ points }) {
             Daily threat pressure peaked at <span className="font-semibold">{max}</span> weighted incidents.
           </p>
         </div>
-        <div className="rounded-full border border-[#00FFC6]/20 bg-[#00FFC6]/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#9DFFEB]">
+        <div className="rounded-full border border-[#1BC2D5]/20 bg-[#1BC2D5]/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-primary)]">
           Live Trend
         </div>
       </div>
@@ -63,8 +66,8 @@ export function ThreatTrendChart({ points }) {
       <svg viewBox={`0 0 ${width} ${height}`} className="h-60 w-full">
         <defs>
           <linearGradient id="threat-area" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#00FFC6" stopOpacity="0.24" />
-            <stop offset="100%" stopColor="#00FFC6" stopOpacity="0" />
+            <stop offset="0%" stopColor="#1BC2D5" stopOpacity="0.24" />
+            <stop offset="100%" stopColor="#1BC2D5" stopOpacity="0" />
           </linearGradient>
         </defs>
 
@@ -80,14 +83,23 @@ export function ThreatTrendChart({ points }) {
           />
         ))}
 
-        <path d={areaPath} fill="url(#threat-area)" />
-        <path
+        <motion.path
+          d={areaPath}
+          fill="url(#threat-area)"
+          initial={shouldReduceMotion ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        />
+        <motion.path
           d={linePath}
           fill="none"
-            stroke="#00FFC6"
+          stroke="#1BC2D5"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
+          initial={shouldReduceMotion ? false : { pathLength: 0, opacity: 0.45 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
         />
 
         {points.map((point, index) => {
@@ -95,8 +107,13 @@ export function ThreatTrendChart({ points }) {
           const y = height - padding - ((point.value - min) / range) * (height - padding * 2);
 
           return (
-            <g key={point.label}>
-              <circle cx={x} cy={y} r="4" fill="#0D1117" stroke="#00FFC6" strokeWidth="2" />
+            <motion.g
+              key={point.label}
+              initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.35, delay: shouldReduceMotion ? 0 : index * 0.035 }}
+            >
+              <circle cx={x} cy={y} r="4" fill="#000000" stroke="#1BC2D5" strokeWidth="2" />
               <text
                 x={x}
                 y={height - 6}
@@ -106,7 +123,7 @@ export function ThreatTrendChart({ points }) {
               >
                 {point.label}
               </text>
-            </g>
+            </motion.g>
           );
         })}
       </svg>

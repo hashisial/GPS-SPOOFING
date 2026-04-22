@@ -1,13 +1,16 @@
+import { motion, useReducedMotion } from "framer-motion";
 import { PanelCard } from "./PanelCard.jsx";
 
 const toneClassMap = {
-  success: "text-[#B8FFF0] border-[#00FFC6]/20 bg-[#00FFC6]/10",
-  info: "text-[#9DFFEB] border-[#00FFC6]/16 bg-[#00FFC6]/8",
-  warning: "text-[#8B949E] border-[#8B949E]/20 bg-[#8B949E]/10",
-  danger: "text-[#FFD1D1] border-[#FF3B3B]/25 bg-[#FF3B3B]/12"
+  success: "text-[var(--text-primary)] border-[#1BC2D5]/20 bg-[#1BC2D5]/10",
+  info: "text-[var(--text-primary)] border-[#1BC2D5]/16 bg-[#1BC2D5]/8",
+  warning: "text-[#145052] border-[#145052]/20 bg-[#145052]/10",
+  danger: "text-[var(--text-primary)] border-[#FFFFFF]/25 bg-[#FFFFFF]/12"
 };
 
 export function SystemHealthCard({ items, checklist }) {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <PanelCard
       eyebrow="System Health"
@@ -16,9 +19,12 @@ export function SystemHealthCard({ items, checklist }) {
       className="h-full"
     >
       <div className="space-y-4">
-        {items.map((item) => (
-          <div
+        {items.map((item, index) => (
+          <motion.div
             key={item.label}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, delay: shouldReduceMotion ? 0 : index * 0.04 }}
             className="rounded-[1.5rem] border border-[var(--border)] bg-[var(--background-muted)] p-4"
           >
             <div className="flex items-center justify-between gap-3">
@@ -37,12 +43,14 @@ export function SystemHealthCard({ items, checklist }) {
               </div>
             </div>
             <div className="mt-4 h-2 overflow-hidden rounded-full bg-black/20">
-              <div
-                className="h-full rounded-full bg-[linear-gradient(90deg,#00FFC6,#8B949E)]"
-                style={{ width: `${item.score}%` }}
+              <motion.div
+                className="h-full rounded-full bg-[linear-gradient(90deg,#1BC2D5,#145052)]"
+                initial={shouldReduceMotion ? false : { width: 0 }}
+                animate={{ width: `${item.score}%` }}
+                transition={{ duration: 0.55, ease: "easeOut" }}
               />
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 

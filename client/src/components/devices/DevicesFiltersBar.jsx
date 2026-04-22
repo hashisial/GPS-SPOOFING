@@ -88,7 +88,7 @@ export function DevicesFiltersBar({
         <button
           type="button"
           onClick={onCreate}
-          className="rounded-2xl bg-[linear-gradient(135deg,#00FFC6,#74FBE0)] px-5 py-3 text-sm font-semibold text-[#041018]"
+          className="rounded-2xl bg-[linear-gradient(135deg,#1BC2D5,#FFFFFF)] px-5 py-3 text-sm font-semibold text-[#000000]"
         >
           Add Device
         </button>
