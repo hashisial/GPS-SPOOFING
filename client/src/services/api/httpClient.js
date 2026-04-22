@@ -48,22 +48,31 @@ function shouldUseDemoAdapter(config = {}) {
 
   const accessToken = readAccessToken();
 
-  return hasActiveDemoSession() || isDemoAccessToken(accessToken);
+  return env.useDemoApi || hasActiveDemoSession() || isDemoAccessToken(accessToken);
 }
 
 async function refreshAccessToken() {
   if (!refreshPromise) {
-    refreshPromise = axios
-      .post(
-        `${env.apiBaseUrl}/auth/refresh-token`,
-        {},
-        {
-          withCredentials: true,
+    const refreshRequest = env.useDemoApi
+      ? buildDemoResponse({
+          method: "post",
+          url: "/auth/refresh-token",
           headers: {
             "Content-Type": "application/json"
           }
-        }
-      )
+        })
+      : axios.post(
+          `${env.apiBaseUrl}/auth/refresh-token`,
+          {},
+          {
+            withCredentials: true,
+            headers: {
+              "Content-Type": "application/json"
+            }
+          }
+        );
+
+    refreshPromise = refreshRequest
       .then((response) => {
         const currentSession = readStoredSession();
         const rememberMe = Boolean(currentSession?.rememberMe);
