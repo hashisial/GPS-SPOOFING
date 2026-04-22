@@ -13,15 +13,15 @@ export function MonitoringSummaryCard({ label, value, detail, tone = "info" }) {
     <motion.article
       whileHover={shouldReduceMotion ? undefined : { y: -4, scale: 1.015 }}
       transition={{ duration: 0.24, ease: "easeOut" }}
-      className="dashboard-panel interactive-card rounded-[1.6rem] p-5"
+      className="dashboard-panel interactive-card flex min-h-[16rem] flex-col rounded-[1.6rem] p-5 sm:min-h-[14rem]"
     >
-      <div className={`inline-flex rounded-full border px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.18em] ${toneClassMap[tone] ?? toneClassMap.info}`}>
+      <div className={`ui-label inline-flex max-w-full self-start rounded-full border px-3 py-1 text-[0.7rem] font-semibold uppercase leading-5 tracking-[0.14em] ${toneClassMap[tone] ?? toneClassMap.info}`}>
         {label}
       </div>
       <div className="mt-4 text-3xl font-semibold text-[var(--text-primary)]">
         <AnimatedCounter value={value} />
       </div>
-      <div className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">{detail}</div>
+      <div className="mt-2 text-sm leading-7 text-[var(--text-secondary)]">{detail}</div>
     </motion.article>
   );
 }

@@ -80,14 +80,14 @@ export function ReportChartsSummary({ report, isLoading }) {
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr))]">
         {metrics.length ? (
           metrics.map((metric) => (
             <article
               key={metric.key}
-              className="rounded-[1.75rem] border border-[var(--border)] bg-[var(--background-muted)] p-5"
+              className="min-h-[11rem] rounded-[1.75rem] border border-[var(--border)] bg-[var(--background-muted)] p-5"
             >
-              <div className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--text-secondary)]">
+              <div className="ui-label text-xs font-semibold uppercase leading-5 tracking-[0.14em] text-[var(--text-secondary)]">
                 {metric.label}
               </div>
               <div className="mt-3 text-3xl font-semibold text-[var(--text-primary)]">

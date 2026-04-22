@@ -787,7 +787,17 @@ h5,
 h6,
 span,
 div {
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+.balanced-copy {
+  text-wrap: balance;
+}
+
+.ui-label {
+  overflow-wrap: normal;
+  word-break: normal;
 }
 
 input,

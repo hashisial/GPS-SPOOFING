@@ -131,7 +131,7 @@ export function MonitoringPage() {
         description="Track device movement in real time with position markers, route trails, popup telemetry, and online/offline fleet status."
       />
 
-      <StaggeredSection className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <StaggeredSection className="grid gap-4 md:grid-cols-2 2xl:grid-cols-4">
         {[
           {
             label: "Total Devices",

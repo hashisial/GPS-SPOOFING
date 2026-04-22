@@ -287,16 +287,16 @@ export function DashboardPage() {
                 </div>
 
                 <div className="rounded-[1.5rem] border border-[var(--border)] bg-[var(--background-muted)] p-5 sm:col-span-2">
-                  <div className="flex min-w-0 flex-col items-start justify-between gap-4 lg:flex-row lg:items-center">
+                  <div className="grid min-w-0 gap-4 xl:grid-cols-[minmax(0,1fr)_auto] xl:items-center">
                     <div className="min-w-0">
-                      <div className="text-xs uppercase tracking-[0.18em] text-[var(--text-secondary)]">
+                      <div className="ui-label text-xs uppercase leading-5 tracking-[0.18em] text-[var(--text-secondary)]">
                         Response Priority
                       </div>
-                      <div className="mt-2 text-lg font-semibold text-[var(--text-primary)]">
+                      <div className="balanced-copy mt-2 max-w-2xl text-lg font-semibold leading-8 text-[var(--text-primary)] sm:text-xl">
                         Critical spoofing incidents around secure perimeter corridors
                       </div>
                     </div>
-                    <div className="inline-flex max-w-full shrink-0 items-center justify-center rounded-full border border-[#FFFFFF]/25 bg-[#FFFFFF]/10 px-4 py-2 text-center text-[0.68rem] font-semibold uppercase leading-5 tracking-[0.14em] text-[var(--text-primary)] sm:text-xs lg:max-w-[15rem]">
+                    <div className="ui-label inline-flex max-w-full items-center justify-center rounded-full border border-[#FFFFFF]/25 bg-[#FFFFFF]/10 px-4 py-2 text-center text-[0.68rem] font-semibold uppercase leading-5 tracking-[0.12em] text-[var(--text-primary)] sm:px-5 sm:text-xs xl:max-w-[17rem]">
                       Analyst Action Recommended
                     </div>
                   </div>
