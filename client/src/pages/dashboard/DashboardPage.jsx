@@ -287,8 +287,8 @@ export function DashboardPage() {
                 </div>
 
                 <div className="rounded-[1.5rem] border border-[var(--border)] bg-[var(--background-muted)] p-5 sm:col-span-2">
-                  <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
-                    <div>
+                  <div className="flex min-w-0 flex-col items-start justify-between gap-4 lg:flex-row lg:items-center">
+                    <div className="min-w-0">
                       <div className="text-xs uppercase tracking-[0.18em] text-[var(--text-secondary)]">
                         Response Priority
                       </div>
@@ -296,7 +296,7 @@ export function DashboardPage() {
                         Critical spoofing incidents around secure perimeter corridors
                       </div>
                     </div>
-                    <div className="rounded-full border border-[#FFFFFF]/25 bg-[#FFFFFF]/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-primary)]">
+                    <div className="inline-flex max-w-full shrink-0 items-center justify-center rounded-full border border-[#FFFFFF]/25 bg-[#FFFFFF]/10 px-4 py-2 text-center text-[0.68rem] font-semibold uppercase leading-5 tracking-[0.14em] text-[var(--text-primary)] sm:text-xs lg:max-w-[15rem]">
                       Analyst Action Recommended
                     </div>
                   </div>

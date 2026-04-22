@@ -25,17 +25,17 @@ export function SystemHealthCard({ items, checklist }) {
             initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, delay: shouldReduceMotion ? 0 : index * 0.04 }}
-            className="rounded-[1.5rem] border border-[var(--border)] bg-[var(--background-muted)] p-4"
+            className="rounded-[1.5rem] border border-[var(--border)] bg-[var(--background-muted)] p-4 sm:p-5"
           >
-            <div className="flex items-center justify-between gap-3">
-              <div>
+            <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+              <div className="min-w-0">
                 <div className="text-sm font-semibold text-[var(--text-primary)]">
                   {item.label}
                 </div>
                 <div className="mt-1 text-sm text-[var(--text-secondary)]">{item.detail}</div>
               </div>
               <div
-                className={`rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] ${
+                className={`inline-flex max-w-full shrink-0 items-center justify-center self-start rounded-full border px-3.5 py-1.5 text-center text-[0.68rem] font-semibold uppercase leading-tight tracking-[0.12em] sm:max-w-[9.5rem] ${
                   toneClassMap[item.tone] ?? toneClassMap.info
                 }`}
               >
