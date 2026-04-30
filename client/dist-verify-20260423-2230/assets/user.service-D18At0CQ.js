@@ -1,0 +1,1 @@
+import{n as e}from"./index-MU7CHSZ6.js";var t={list(t){return e.get(`/users`,{params:t})},getById(t){return e.get(`/users/${t}`)},create(t){return e.post(`/users`,t)},update(t,n){return e.patch(`/users/${t}`,n)},block(t,n={}){return e.patch(`/users/${t}/block`,n)},unblock(t){return e.patch(`/users/${t}/unblock`)},remove(t){return e.delete(`/users/${t}`)}};export{t};
