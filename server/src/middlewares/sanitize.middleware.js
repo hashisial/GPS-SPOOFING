@@ -1,4 +1,11 @@
-const RAW_STRING_FIELDS = new Set(["password", "confirmPassword", "token", "refreshToken"]);
+const RAW_STRING_FIELDS = new Set([
+  "password",
+  "confirmPassword",
+  "token",
+  "refreshToken",
+  "apiKey",
+  "deviceApiKey"
+]);
 
 function sanitizeString(value) {
   return value

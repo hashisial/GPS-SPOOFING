@@ -7,6 +7,7 @@ import {
   listDevices,
   updateDevice
 } from "../../services/devices/device.service.js";
+import { provisionDeviceApiKey } from "../../services/devices/device-auth.service.js";
 
 export const listDevicesHandler = asyncHandler(async (req, res) => {
   const result = await listDevices(req.query);
@@ -53,6 +54,16 @@ export const deleteDeviceHandler = asyncHandler(async (req, res) => {
     success: true,
     message: "Device deleted successfully",
     result
+  });
+});
+
+export const provisionDeviceApiKeyHandler = asyncHandler(async (req, res) => {
+  const result = await provisionDeviceApiKey(req.params.deviceId, req.user);
+
+  res.status(StatusCodes.OK).json({
+    success: true,
+    message: "Device API key generated successfully. Store it now because it will not be shown again.",
+    ...result
   });
 });
 

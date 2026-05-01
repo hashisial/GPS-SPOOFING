@@ -19,6 +19,7 @@
     "dev:client": "npm run dev --prefix client",
     "dev:server": "npm run dev --prefix server",
     "build": "npm run build --prefix client",
+    "test:gps-session": "node tools/gps-test-session.mjs",
     "start": "npm run build --prefix client && concurrently -n server,client -c cyan,green \"npm run start --prefix server\" \"npm run preview --prefix client -- --host 0.0.0.0 --port 5173\"",
     "start:client": "npm run preview --prefix client -- --host 0.0.0.0 --port 5173",
     "start:server": "npm run start --prefix server",
@@ -26,6 +27,7 @@
     "test": "npm run test --prefix server && npm run test --prefix client -- --run"
   },
   "devDependencies": {
-    "concurrently": "latest"
+    "concurrently": "latest",
+    "jsdom": "^25.0.1"
   }
 }

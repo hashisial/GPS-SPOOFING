@@ -4,6 +4,7 @@ import {
   deleteDeviceHandler,
   getDeviceHandler,
   listDevicesHandler,
+  provisionDeviceApiKeyHandler,
   updateDeviceHandler
 } from "../controllers/device.controller.js";
 import { authenticate, authorize } from "../../middlewares/auth.middleware.js";
@@ -37,6 +38,12 @@ deviceRouter.post(
   authorize(ROLES.SUPER_ADMIN),
   validateRequest(createDeviceSchema),
   createDeviceHandler
+);
+deviceRouter.post(
+  "/:deviceId/api-key",
+  authorize(ROLES.SUPER_ADMIN),
+  validateRequest(deviceIdParamSchema),
+  provisionDeviceApiKeyHandler
 );
 deviceRouter.patch(
   "/:deviceId",

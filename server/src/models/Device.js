@@ -48,6 +48,19 @@ const deviceSchema = new mongoose.Schema(
       default: DEVICE_STATUS.OFFLINE,
       index: true
     },
+    deviceApiKeyHash: {
+      type: String,
+      default: null,
+      select: false
+    },
+    deviceApiKeyLastFour: {
+      type: String,
+      default: null
+    },
+    deviceApiKeyIssuedAt: {
+      type: Date,
+      default: null
+    },
     owner: objectIdField,
     lastSeen: {
       type: Date,
@@ -67,6 +80,8 @@ const deviceSchema = new mongoose.Schema(
     toJSON: {
       transform(_doc, ret) {
         ret.id = ret._id.toString();
+        ret.hasDeviceApiKey = Boolean(ret.deviceApiKeyLastFour);
+        delete ret.deviceApiKeyHash;
         delete ret._id;
         return ret;
       }
@@ -74,6 +89,8 @@ const deviceSchema = new mongoose.Schema(
     toObject: {
       transform(_doc, ret) {
         ret.id = ret._id.toString();
+        ret.hasDeviceApiKey = Boolean(ret.deviceApiKeyLastFour);
+        delete ret.deviceApiKeyHash;
         delete ret._id;
         return ret;
       }
