@@ -7,6 +7,7 @@ static const char* WIFI_SSID = "YOUR_WIFI_NAME";
 static const char* WIFI_PASSWORD = "YOUR_WIFI_PASSWORD";
 static const char* GPS_API_URL = "https://gps-spoofing.onrender.com/api/v1/gps/device-data";
 static const char* DEVICE_ID = "FIELD-TEST-001";
+// Keep your live device key local on your machine and do not commit it.
 static const char* DEVICE_API_KEY = "REPLACE_WITH_DEVICE_API_KEY";
 
 static constexpr bool USE_SIMULATED_GPS = true;
